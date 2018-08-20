@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "Sygtura czasowa,Patient number,Gender,DOB,Height,weight,AD.,since,Asthma,Allergic Rhinits,Known allergies,Concomitant diseases,Any systemic Medicamentation,Any topical medication,Last time medication was used on sampled sites?,Last time medication was used systematically,Last shower/bath,Area,Erythema,Papulation,Crusting,Excoriations,Lichenifications,Xerosis,Pruritus,Sleep loss,BSA,EASI,DLQI,Serum Provided,Sampling date,Extraction date,Sample frozen prior extraction?,Clinical trial member,S FA - lesion?,S RA - lesion?,S IS - lesion?,Probe 4 - lesion?,Probe 4 place,Weather: temperature,Weather:humidity\n2015-09-16 11:06:48,2,M,1963-08-16,182,100,yes,3,Yes,Yes,\"Fish, egg protein, birch\",none,previous look in patient data,no for previous look in the file,4 weeks,4 weeks,>48,31,2,2,1,1,2,2,9.5,8.1,31,32.4,25,Yes,2015-07-13,2015-07-20,Yes,Regeneron,Yes,Yes,No,,,,\n2015-09-18 10:32:25,14,M,1987-08-01,178,80,no,,No,No,none,none,none,none,,,24-48,0,0,0,0,0,0,0,0,0,0,0,0,Yes,2015-08-05,,No,NONE,No,No,No,,,,\n2015-09-18 10:42:32,1,M,1982-05-17,,,yes,1,No,Yes,\"Haselnuss, Erdnuss\",none,none,Octenisan,48h,,>48,12,1,1,0,1,0,0,3.96,2.6,12,,,Yes,,,Yes,NONE,No,No,No,,,,\n2015-09-18 10:57:32,3,M,1991-06-14,180,75,yes,1,Yes,Yes,none,none,cyclosporin,none,4 weeks,4 weeks,12-24,36,2,2,1,2,1,1,4.2,0.8,36,32.2,13,Yes,,,,,Yes,Yes,Yes,,,,\n2015-09-18 12:15:15,4,M,1976-09-25,177,87,yes,18,Yes,Yes,food,none,none Regeneron V6,corticostreiods,4 weeks,4 weeks,>48,70,1,2,1,2,2,3,3,1,64,29,1,Yes,2015-07-15,,No,Regeneron,Yes,Yes,Yes,,,,\n2015-09-24 11:11:48,5,M,1982-09-16,197,95,yes,1,Yes,Yes,\"Pollen, cats,\",COPD,Prednison,corticosteroids/elidel,2014,2013,12-24,30,2,2,1,2,1,1,6,5,30,19.5,,Yes,2015-07-21,,No,MedImmune,No,No,No,Yes,FA,,\n2015-09-24 11:17:46,6,M,1987-01-01,,,no,,No,No,Birch,none,none,none,,,<12,0,0,0,0,0,0,0,0,0,0,0,0,NO,2015-07-29,,No,NONE,No,No,No,,,,\n2015-09-24 12:29:01,7,M,1991-11-11,180,80,yes,1,Yes,Yes,\"Eggs, nuts\",herpes,Regeneron 2x,none,4 weeks,1 week,12-24,34,2,2,1,1,1,1,5.2,3,11,,,Yes,2015-07-28,,No,Regeneron,No,Yes,Yes,,,,\n2015-09-24 13:56:36,8,M,1990-08-18,183,72,no,,No,Yes,Cat,none,non,none,,,<12,0,0,0,0,0,0,0,0,0,0,0,0,NO,2015-07-30,,No,Allergy,No,No,No,,,,\n2015-09-24 14:05:31,9,M,1971-05-08,178,65,no,,No,Yes,\"Cat,\",none,loratadine,none,,,<12,0,0,0,0,0,0,0,0,0,0,0,0,NO,,,,NONE,No,No,No,,,,\n2015-09-24 14:27:14,11,M,1970-11-11,177,78,yes,2,No,Yes,weizen,none,Prednison,corticostreiods,24h,1 week,<12,40,2,1,1,1,1,1,7,6,40,16.2,,NO,2015-08-03,,No,NONE,Yes,Yes,Yes,,,,\n2015-09-24 14:35:52,12,M,1989-04-26,188,83,no,,Yes,Yes,\"food, cat\",none,salbutamol cetirizin,none,,,<12,0,0,0,0,0,0,0,0,0,0,0,0,NO,2015-08-03,,No,Allergy,No,No,No,,,,\n2015-09-24 14:39:05,13,M,1988-03-12,177,82,no,,No,No,none,none,none,none,,,24-48,0,0,0,0,0,0,0,0,0,0,0,0,Yes,2015-08-04,,No,NONE,No,No,No,,,,\n2015-09-24 14:42:24,10,M,,,,no,,No,No,none,none,none,none,,,<12,0,0,0,0,0,0,0,0,0,0,0,0,Yes,2015-08-01,,No,Allergy,No,No,No,,,,\n",
+    "created" : 1508165699922.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3921325990",
+    "id" : "CA5DA919",
+    "lastKnownWriteTime" : 1445934968,
+    "last_content_update" : 1445934968,
+    "path" : "~/Documents/microbiome/Data/CRF.csv",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "text"
+}

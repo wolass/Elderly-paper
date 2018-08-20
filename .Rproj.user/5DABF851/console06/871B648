@@ -1,0 +1,157 @@
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ [K]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git status
+fatal: not a git repository (or any parent up to mount point /home)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git init
+Initialized empty Git repository in /home/wolass/Documents/elderly paper/.git/
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git add .
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+	[32mnew file:   .RData[m
+	[32mnew file:   .Rhistory[m
+	[32mnew file:   .Rproj.user/190AF90D/build_options[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/files-pane.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/source-pane.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/windowlayoutstate.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/workbench-pane.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/rmd-outputs[m
+	[32mnew file:   .Rproj.user/190AF90D/saved_source_markers[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/60CA46A7[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/90610168[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/A81FBB32[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/AD844DB4[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/CA5DA919[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/EC787077[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/14868EA9[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/23CD17B2[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/39E3B966[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/754474C5[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/B2D34ED7[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/FCBC0680[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/INDEX[m
+	[32mnew file:   .Rproj.user/190AF90D/session-persistent-state[m
+	[32mnew file:   .Rproj.user/5DABF851/console06/871B648[m
+	[32mnew file:   .Rproj.user/5DABF851/console06/INDEX001[m
+	[32mnew file:   .Rproj.user/5DABF851/sources/s-6DD7FE34/lock_file[m
+	[32mnew file:   .Rproj.user/shared/notebooks/100D14DF-Project/1/190AF90D/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/105DEB0D-20160613/1/190AF90D/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/105DEB0D-20160613/1/s/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/FB4D3291-REsearch outcomes in derm/1/190AF90D/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/FB4D3291-REsearch outcomes in derm/1/s/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/patch-chunk-names[m
+	[32mnew file:   .Rproj.user/shared/notebooks/paths[m
+	[32mnew file:   .~lock.Elderly Paper 27-06-2017.xlsx#[m
+	[32mnew file:   Elderly Paper 27-06-2017.xlsx[m
+	[32mnew file:   "Fig and tables 27.06.2017 DRAFT f\303\203\302\274r Wojciech.docx"[m
+	[32mnew file:   Gastro_symptoms.png[m
+	[32mnew file:   Project.Rmd[m
+	[32mnew file:   Project.docx[m
+	[32mnew file:   Project.html[m
+	[32mnew file:   elderly paper.Rproj[m
+	[32mnew file:   skin.png[m
+	[32mnew file:   version 1 _ 150617.docx[m
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git ][K[K[K[K[K[K]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+	[32mnew file:   .RData[m
+	[32mnew file:   .Rhistory[m
+	[32mnew file:   .Rproj.user/190AF90D/build_options[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/files-pane.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/source-pane.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/windowlayoutstate.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/workbench-pane.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/rmd-outputs[m
+	[32mnew file:   .Rproj.user/190AF90D/saved_source_markers[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/60CA46A7[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/90610168[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/A81FBB32[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/AD844DB4[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/CA5DA919[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/EC787077[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/14868EA9[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/23CD17B2[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/39E3B966[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/754474C5[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/B2D34ED7[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/FCBC0680[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/INDEX[m
+	[32mnew file:   .Rproj.user/190AF90D/session-persistent-state[m
+	[32mnew file:   .Rproj.user/5DABF851/console06/871B648[m
+	[32mnew file:   .Rproj.user/5DABF851/console06/INDEX001[m
+	[32mnew file:   .Rproj.user/5DABF851/sources/s-6DD7FE34/lock_file[m
+	[32mnew file:   .Rproj.user/shared/notebooks/100D14DF-Project/1/190AF90D/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/105DEB0D-20160613/1/190AF90D/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/105DEB0D-20160613/1/s/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/FB4D3291-REsearch outcomes in derm/1/190AF90D/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/FB4D3291-REsearch outcomes in derm/1/s/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/patch-chunk-names[m
+	[32mnew file:   .Rproj.user/shared/notebooks/paths[m
+	[32mnew file:   .~lock.Elderly Paper 27-06-2017.xlsx#[m
+	[32mnew file:   Elderly Paper 27-06-2017.xlsx[m
+	[32mnew file:   "Fig and tables 27.06.2017 DRAFT f\303\203\302\274r Wojciech.docx"[m
+	[32mnew file:   Gastro_symptoms.png[m
+	[32mnew file:   Project.Rmd[m
+	[32mnew file:   Project.docx[m
+	[32mnew file:   Project.html[m
+	[32mnew file:   elderly paper.Rproj[m
+	[32mnew file:   skin.png[m
+	[32mnew file:   version 1 _ 150617.docx[m
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+	[31mmodified:   .Rproj.user/5DABF851/console06/INDEX001[m
+	[31mmodified:   .Rproj.user/shared/notebooks/paths[m
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31m.Rproj.user/5DABF851/console06/871B648.env[m
+	[31m.Rproj.user/5DABF851/sources/prop/[m
+	[31m.Rproj.user/5DABF851/sources/s-6DD7FE34/7B3AEDE0[m
+	[31m.Rproj.user/5DABF851/sources/s-6DD7FE34/7B3AEDE0-contents[m
+	[31m.gitignore[m
+
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git remove -[K[K[K[K[K[K[K[K[K[K[K[Kgir [K[Kt reset
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31m.Rproj.user/[m
+	[31m.gitignore[m
+	[31m.~lock.Elderly Paper 27-06-2017.xlsx#[m
+	[31mElderly Paper 27-06-2017.xlsx[m
+	[31m"Fig and tables 27.06.2017 DRAFT f\303\203\302\274r Wojciech.docx"[m
+	[31mProject.Rmd[m
+	[31mProject.docx[m
+	[31mProject.html[m
+	[31melderly paper.Rproj[m
+	[31mversion 1 _ 150617.docx[m
+
+nothing added to commit but untracked files present (use "git add" to track)
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git add .

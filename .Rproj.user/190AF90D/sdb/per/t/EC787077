@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"REsearch outcomes in dermatology\"\noutput: html_document\n---\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = TRUE)\n```\n\nSame endpoints can have different optimalizations of the outcome. \n\n# CORE Outcomes in dermatology\n\nWhat do we ant to measure? \n\nA set of previously defined outcomesto report in every RCT\n\n# CORE METHODS\n\nhow do we want to measure?\n# Initatives \n\nCSG-COUSIN - Cochrane Skin Group  <- this is important! !! \nCOMET initiative\nOMERACT\n\nYou can submit your own Question / DOMAIN / or instrument to measure the domain. \n\n# There are already domains !! \nHOME domain for measuring the eczema .\n\n\n# Thisnk of what you can add:\n- Core outcomes in anaphylaxis\n- Lupus\n- Dermatomyositis\n- Scleroderma\n\n",
+    "created" : 1505139385474.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1129754974",
+    "id" : "EC787077",
+    "lastKnownWriteTime" : 1505141446,
+    "last_content_update" : 1505141446424,
+    "path" : "~/Documents/REsearch outcomes in derm.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

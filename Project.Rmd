@@ -1,0 +1,591 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+Die Tabellen und Abbildungen in dem Word.doc sind noch mit den Vorjahres-Datensatz berechnet. Alles müsste mit den >10.000 Fällen berechnet werden.
+
+Aber Achtung ich nehme nur die Fälle mit Ring&Messmer ≥ grad II und auch nur aus den Ländern, die >100 Fälle gemeldet haben (Germany, Austria, Switzerland, Greece, Poland, Spain, France, 
+Bulgaria, Italy, Ireland).
+
+In der Exceltabelle im Anhang habe ich schon mit den neuen Zahlen begonnen.
+Ich kann allerdings die Korrektur für Multiples Testen in SPSS nicht.
+Ich würde auch immer gern wissen, zwischen welchen Gruppen genau ein Unterschied besteht, wenn der Chi² test signifikant ist.
+
+Es sind 2 Abbildungen in dem Manuskript. Hier wäre die Frage, ob Du so ähnliche Abbildungen für die Erwachsenen erstellen kannst?
+
+# Loading the data
+
+```{r set_knitr_chunk_options,echo=FALSE,message=FALSE,warning=FALSE}
+#bibliography: references.bib
+
+require(knitr)
+require(kfigr)
+require(magrittr)
+opts_chunk$set(echo=FALSE,message=FALSE,warning=F,cache = F)#,eval.after='fig.height') # important for making sure the output will be well formatted.
+options(scipen=9999)
+
+#### Citations
+require(bibtex)
+require(knitcitations)
+#biblio <- read.bib("bib.bibtex")
+cite_options(citation_format = "compatibility", style = "text",
+             hyperlink = FALSE, cite.style = "numeric", super = FALSE,
+             max.names = 4, longnamesfirst = FALSE, check.entries = FALSE)
+
+require(pander)
+#replace.print.methods <- function(PKG_name = "pander") {
+#   PKG_methods <- as.character(methods(PKG_name))
+#   print_methods <- gsub(PKG_name, "print", PKG_methods)
+#   for(i in seq_along(PKG_methods)) {
+#      f <- eval(parse(text=paste(PKG_name,":::", PKG_methods[i], sep = ""))) # the new function to use for print
+#      assign(print_methods[i], f, ".GlobalEnv")
+#   }
+#}
+#replace.print.methods()
+## The following might work with some tweaks:
+## print <- function (x, ...) UseMethod("pander")
+
+panderOptions('table.split.table',Inf)
+
+# Here I read data into R using the function below and save it in a native R format. 
+# data <- read.spss("/home/wojtek/Documents/anaphylaxis registry/anaphylaxis/anaphylaxis_registry_02_mar_2015_mergedSD.sav",use.value.labels = TRUE,to.data.frame = T,trim.factor.names = T,trim_values = T) #this loads the databbase from spss file - watch out for errors.
+
+# new database!!!!
+# data <- read.spss("/home/wojtek/Documents/anaphylaxis registry/anaphylaxis/anaphylaxis_registry_18_apr_2016_mergedSD.sav",use.value.labels = TRUE,to.data.frame = T,trim.factor.names = T,trim_values = T) #this loads the databbase from spss file - watch out for errors.
+
+# new database 2017 !!!!
+# library("foreign")
+# data3 <- read.spss("/home/wolass/Documents/anaphylaxis/anaphylaxis_registry_20_mar_2017_mergedSD.sav",use.value.labels = TRUE,to.data.frame = T,trim.factor.names = T,trim_values = T) #this loads the databbase from spss file - watch out for errors.
+
+# save(data3,file = "data3.R") # dor database from 2015 choose data.R
+load("../anaphylaxis/data3.R")
+# load("data2.R")
+data <- data3[,-16]
+# I could make a nice table showing  mistakes in our database. 
+# length(which(data$q_111=="no"&data$q_111_angioedema=="unknown"))
+
+### Here I will introduce functions for database conformity
+for(i in c(16:55,65,75,178:205,209:220,222:223)){
+  levels(data[,i]) <- c(levels(data[,i])[1:2],NA)  
+}
+for(i in c(79:83)){
+  levels(data[,i]) <- c(levels(data[,i])[1:2],"no")  
+}
+levels(data$q_421_exercise) <- c("no","mild","moderate","vigorous",NA)
+
+no.of.centers <- length(levels(data$b_centres_id))
+no.of.countries <- length(summary(data$d_centres_country)) - length(which(summary(data$d_centres_country)==0))
+
+no.of.cases <- length(data$b_case_id)
+no.of.patients <- no.of.cases - (length(which(summary(data$b_patient_code)==2)) + length(which(summary(data$b_patient_code)==3)) +length(which(summary(data$b_patient_code)==4)) + length(which(summary(data$b_patient_code)==5)))
+
+no.of.F <- summary(data$b_sex)[1]
+no.of.M <- summary(data$b_sex)[2]
+
+#Check this using the following line
+#summary(as.factor(summary(data$b_patient_code)))
+
+
+##OUTCOMES
+data$rmr <- data$d_severity_rm
+levels(data$rmr)<-c("I+II","I+II","III+IV","III+IV")
+data$rmr2 <- data$d_severity_rm
+levels(data$rmr2)<-c("I+II+III","I+II+III","I+II+III","IV")
+
+```
+
+Registered cases `r nrow(data)`
+
+```{r}
+data.country <- data[data$d_centres_country %in% 
+                       c("Germany", "Austria", "Switzerland", "Greece", "Poland", "Spain", "France", "Bulgaria", "Italy", "Ireland"),]
+```
+
+Cases after getting rid of some low-reporting countries `r nrow(data.country)`
+
+```{r}
+d.rm <- data.country[which(data.country$d_severity_rm=="grade II"|
+                             data.country$d_severity=="grade III"|
+                             data.country$d_severity=="grade IV"),]
+```
+
+Cases with severity of `>= II` `r nrow(d.rm)`
+
+```{r}
+d.ch <- d.rm[which(d.rm$d_age<18),]
+d.ad<- d.rm[which(d.rm$d_age>=18),]
+d.ad.1 <- d.rm[which(d.rm$d_age>=18&d.rm$d_age<=40),]
+d.ad.2 <- d.rm[which(d.rm$d_age>=41&d.rm$d_age<=64),]
+d.ad.3 <- d.rm[which(d.rm$d_age>=65),]
+
+```
+
+
+Children `r nrow(d.ch)`, adults `r nrow(d.ad)`, 
+
+Adults 18-40 = `r nrow(d.ad.1)`
+Adults 41-64 = `r nrow(d.ad.2)`
+Elderly >=65 = `r nrow(d.ad.3)`
+
+```{r}
+f.age <-function(x){ if(x>17&x<=40){
+  return("young")
+} else if(x>40&x<=64){
+  return("middle")
+} else if(x>=65){
+  return("elderly")
+} else {
+  return(NA)
+}
+}
+# here we change the d.rm to be oly of adults
+d.rm <- d.ad
+
+d.rm$ages <-sapply(d.rm$d_age,f.age) 
+
+table(d.rm$b_sex,d.rm$ages)
+require(rmngb)
+pairwise.chisq.test(d.rm$b_sex,d.rm$ages)
+```
+
+# Atopic dermatitis
+```{r}
+d_410_atopic <- rep("non-atopic",nrow(d.rm))
+d_410_atopic[d.rm$q_410_ad_cur=="yes"|
+  d.rm$q_410_asthma_cur=="yes" |
+  d.rm$q_410_rhinitis_cur=="yes"] <- "atopic"
+
+d.rm$d_410_atopic <- d_410_atopic
+table(d.rm$d_410_atopic,d.rm$ages)
+pairwise.chisq.test(d.rm$d_410_atopic,d.rm$ages)
+```
+
+# Cardiovascular disease 
+
+```{r}
+table(d.rm$q_410_cardio_cur,d.rm$ages)
+pairwise.chisq.test(d.rm$q_410_cardio_cur,d.rm$ages)
+```
+
+# Mastocytosis
+
+```{r}
+table(d.rm$q_410_masto_cur,d.rm$ages)
+pairwise.chisq.test(d.rm$q_410_masto_cur,d.rm$ages)
+```
+
+# Thyroid disease 
+
+```{r}
+table(d.rm$q_410_thyroid_cur,d.rm$ages)
+pairwise.chisq.test(d.rm$q_410_thyroid_cur,d.rm$ages)
+```
+
+# Physical exercise 
+
+```{r}
+table(d.rm$q_421_exercise,d.rm$ages)
+pairwise.chisq.test(d.rm$q_421_exercise,d.rm$ages)
+```
+
+# Psychological stress
+
+```{r}
+table(d.rm$q_422_stress,d.rm$ages)
+pairwise.chisq.test(d.rm$q_422_stress,d.rm$ages)
+```
+
+# Alcohol
+
+```{r}
+table(d.rm$q_425_alcohol,d.rm$ages)
+pairwise.chisq.test(d.rm$q_425_alcohol,d.rm$ages)
+```
+
+# Menstruation
+frd
+```{r}
+table(d.rm$q_424_menstruation,d.rm$ages)
+pairwise.chisq.test(d.rm$q_424_menstruation,d.rm$ages)
+```
+
+This variable should not be taken into account I think. The elderly group does not have any menstrruation...
+
+
+# infection
+
+```{r}
+table(d.rm$q_410_infect_cur,d.rm$ages)
+pairwise.chisq.test(d.rm$q_410_infect_cur,d.rm$ages)
+```
+
+# repeated reaction
+
+```{r}
+table(d.rm$q_160_ever_react,d.rm$ages) 
+pairwise.chisq.test(d.rm$q_160_ever_react,d.rm$ages)
+```
+
+# Elicitors
+
+Total
+
+```{r}
+Fun <- function(x,selector=rep(TRUE,nrow(d.rm))){
+  a <- table(d.rm[selector,x],d.rm$ages[selector]) 
+  b <- pairwise.chisq.test(d.rm[selector,x],d.rm$ages[selector])
+  return(list(c(x),a,b))
+}
+Fun("q_310_trigger",selector=rep(TRUE,nrow(d.rm)))
+
+```
+
+Elicitor known 
+```{r}
+d.rm$elicitor_known<- rep("no",nrow(d.rm))
+d.rm$elicitor_known[d.rm$q_310_trigger=="yes"] <- "yes"
+
+Fun("elicitor_known")
+```
+
+Elicitor suspected
+```{r}
+d.rm$elicitor_suspected<- rep("no",nrow(d.rm))
+d.rm$elicitor_suspected[d.rm$q_310_trigger=="reasonable suspicion"] <- "yes"
+
+Fun("elicitor_suspected")
+```
+
+Drugs 
+```{r}
+
+d.rm$elicitor_drug<- rep("no",nrow(d.rm))
+d.rm$elicitor_drug[d.rm$d_elicitor_group=="drug"] <- "yes"
+
+Fun("elicitor_drug")
+```
+
+analgesics
+```{r}
+
+d.rm$elicitor_analg<- rep("no",nrow(d.rm))
+d.rm$elicitor_analg[!is.na(d.rm$q_332_analgesic)] <- "yes"
+d.rm$elicitor_analg[d.rm$q_332_analgesic=="no"] <- "no"
+
+Fun("elicitor_analg")
+```
+
+antibiotics
+```{r}
+
+d.rm$elicitor_anty<- rep("no",nrow(d.rm))
+d.rm$elicitor_anty[!is.na(d.rm$q_331_antibiotics)] <- "yes"
+d.rm$elicitor_anty[d.rm$q_331_antibiotics=="no"] <- "no"
+
+Fun("elicitor_anty")
+```
+
+
+Local anesthetics
+```{r}
+d.rm$elicitor_LA<- rep("no",nrow(d.rm))
+d.rm$elicitor_LA[!is.na(d.rm$q_3361_local_anaesthetics_v4)] <- "yes"
+d.rm$elicitor_LA[d.rm$q_3361_local_anaesthetics_v4=="no"] <- "no"
+
+Fun("elicitor_LA")
+```
+
+
+x-ray (contrast agent)
+```{r}
+d.rm$elicitor_contrast<- rep("no",nrow(d.rm))
+d.rm$elicitor_contrast[!is.na(d.rm$q_335_xray_cm)] <- "yes"
+d.rm$elicitor_contrast[d.rm$q_335_xray_cm=="no"] <- "no"
+
+Fun("elicitor_contrast")
+```
+
+PPI
+```{r}
+d.rm$elicitor_ppi<- rep("no",nrow(d.rm))
+d.rm$elicitor_ppi[!is.na(d.rm$q_339_ppi_v5)] <- "yes"
+d.rm$elicitor_ppi[d.rm$q_339_ppi_v5=="no"] <- "no"
+
+Fun("elicitor_ppi")
+```
+
+Cardiovascular drugs
+
+Here the variable `d.rm$q_333_cardio_drugs` was unfortunately not adequate to use. 
+I made a new variable `elicitor_cvd` which answered "yes" whenever either ACE-I, AT2 or Bebtablockers were used. If neither of these drugs were used in a given patient it resulted in "no".
+
+```{r}
+d.rm$elicitor_cvd<- rep("no",nrow(d.rm))
+d.rm$elicitor_cvd[d.rm$q_423_ace=="yes"] <- "yes"
+d.rm$elicitor_cvd[d.rm$q_423_at2=="yes"] <- "yes"
+d.rm$elicitor_cvd[d.rm$q_423_beta=="yes"] <- "yes"
+d.rm$elicitor_cvd[!is.na(d.rm$q_333_cardio_drugs)] <- "yes"
+d.rm$elicitor_cvd[d.rm$q_333_cardio_drugs=="no"] <- "no"
+
+Fun("elicitor_cvd")
+```
+
+Insects
+```{r}
+d.rm$elicitor_insects<- rep("no",nrow(d.rm))
+d.rm$elicitor_insects[!is.na(d.rm$q_340_insects)] <- "yes"
+d.rm$elicitor_insects[d.rm$q_340_insects=="no"] <- "no"
+
+Fun("elicitor_insects")
+```
+
+Yellow jacket
+```{r}
+d.rm$elicitor_yj<- rep("no",nrow(d.rm))
+d.rm$elicitor_yj[d.rm$q_340_insects=="yellow jacket"] <- "yes"
+
+Fun("elicitor_yj")
+```
+
+Bee
+```{r}
+d.rm$elicitor_bee<- rep("no",nrow(d.rm))
+d.rm$elicitor_bee[d.rm$q_340_insects=="bee"] <- "yes"
+
+Fun("elicitor_bee")
+```
+
+Hornet
+```{r}
+d.rm$elicitor_hornet<- rep("no",nrow(d.rm))
+d.rm$elicitor_hornet[d.rm$q_340_insects=="hornet"] <- "yes"
+
+Fun("elicitor_hornet")
+```
+
+# Food
+```{r}
+d.rm$elicitor_food<- rep("no",nrow(d.rm))
+d.rm$elicitor_food[d.rm$d_elicitor_group=="food"] <- "yes"
+Fun("elicitor_food")
+
+d.rm.f <- d.rm[d.rm$elicitor_food=="yes",]
+Fun.f <- function(x,selector=rep(TRUE,nrow(d.rm.f))){
+  a <- table(d.rm.f[selector,x],d.rm.f$ages[selector]) 
+  b <- pairwise.chisq.test(d.rm.f[selector,x],d.rm.f$ages[selector])
+  return(list(c(x),a,b))
+}
+
+```
+
+## wheat
+```{r}
+d.rm.f$elicitor_wheat<- rep("no",nrow(d.rm.f))
+d.rm.f$elicitor_wheat[d.rm.f$q_324_cereals=="wheat floar"] <- "yes"
+
+Fun.f("elicitor_wheat")
+```
+
+## hazelnut
+```{r}
+d.rm.f$elicitor_HN<- rep("no",nrow(d.rm.f))
+d.rm.f$elicitor_HN[d.rm.f$q_322_treenuts=="hazelnut"] <- "yes"
+
+Fun.f("elicitor_HN")
+```
+
+## soy
+```{r}
+d.rm.f$elicitor_soy<- rep("no",nrow(d.rm.f))
+d.rm.f$elicitor_soy[d.rm.f$q_326_legumes=="soy"] <- "yes"
+
+Fun.f("elicitor_soy")
+```
+
+## celery
+```{r}
+d.rm.f$elicitor_celery<- rep("no",nrow(d.rm.f))
+d.rm.f$elicitor_celery[d.rm.f$q_323_vegetables=="celery"] <- "yes"
+
+Fun.f("elicitor_celery")
+```
+
+## shellfish
+```{r}
+d.rm.f$elicitor_shellfish<- rep("no",nrow(d.rm.f))
+d.rm.f$elicitor_shellfish[d.rm.f$q_325_animal_products%in%
+                          c("mussels","snails","shrimp/scampi","crab",
+                            "crawfish","spiny lobster","calamari")] <- "yes"
+
+Fun.f("elicitor_shellfish")
+```
+
+## peanut
+```{r}
+d.rm.f$elicitor_peanut<- rep("no",nrow(d.rm.f))
+d.rm.f$elicitor_peanut[which(d.rm.f$q_326_legumes=="peanut")] <- "yes"
+# d.rm$elicitor_peanut <- factor(d.rm$elicitor_peanut)
+
+Fun.f("elicitor_peanut")
+```
+
+# Immunotherapy (SIT)
+```{r}
+d.rm$elicitor_SIT<- rep("no",nrow(d.rm))
+d.rm$elicitor_SIT[which(d.rm$d_elicitor_group=="SIT")] <- "yes"
+# d.rm$elicitor_peanut <- factor(d.rm$elicitor_peanut)
+
+Fun("elicitor_SIT")
+```
+
+
+```{r}
+require(ggplot2)
+ggplot(d.rm[d.rm$d_elicitor_group!="insects",], aes(d_age,fill=d_elicitor_group))+
+  geom_area(stat = 'bin',
+            aes(y=..density..),
+            position = "stack",
+            binwidth=9,
+            linetype=1,
+            size =1,
+            colour="black")+
+  scale_fill_brewer(palette="Greys") +
+  theme_classic()+
+  theme(legend.position = c(1,1),legend.justification = c(1,1))+
+  geom_segment(aes(xend=40,x=40,y=0,yend=0.17),linetype=2)+
+  geom_segment(aes(xend=60,x=60,y=0,yend=0.17),linetype=2)
+
+
+ggplot(d.rm,aes(x=d_age,y=..count..,fill=d_elicitor_group))+
+  geom_density(position="fill")+
+  theme_bw()+
+  scale_fill_grey(guide=guide_legend(title = "Elicitor"))+
+  # guides(fill=guide_legend(reverse=F))+
+  ylab("Relative count")+
+    geom_segment(aes(xend=40,x=40,y=0,yend=1),linetype=2)+
+  geom_segment(aes(xend=60,x=60,y=0,yend=1),linetype=2)
+
+
+```
+
+So we can do it - the question now is what do we want to display? Food? or any other variables here that may be of interest?
+
+Second plot - symptoms
+
+## Gastrointestinal
+```{r}
+
+ggplot(d.rm[!is.na(d.rm$q_112_vomiting),],aes(x=d_age,y=..count..))+
+  stat_density(position="fill",geom="line",aes(color=q_112_vomiting,linetype="1"))+
+  stat_density(position="fill",geom="line",aes(color=q_112_abdominal_pain,linetype="4"))+
+  stat_density(position="fill",geom="line",aes(color=q_112_incontinence,linetype="6"))+
+  stat_density(position="fill",geom="line",aes(color=q_112_nausea,linetype="8"))+
+  theme_bw()+
+  scale_fill_grey(guide=guide_legend(title = "Elicitor"))+
+  # guides(fill=guide_legend(reverse=F))+
+  ylab("Relative count")+
+    geom_segment(aes(xend=40,x=40,y=0,yend=1),linetype=2)+
+  ylim(c(0,0.5))+
+  geom_segment(aes(xend=60,x=60,y=0,yend=1),linetype=2)+
+  guides(color="none",
+         linetype=guide_legend(title = "Symptom"))+
+  scale_linetype_manual(values=c(1,4,3,8),
+                        labels=c("vomiting",
+                                   "abdominal pain",
+                                   "incontinence",
+                                   "nausea"))+
+  theme(legend.position = c(0.1,0.99),
+        legend.justification = c(0,1),
+        legend.background = element_rect(fill="transparent"))
+  
+
+```
+
+## Skin
+```{r}
+
+ggplot(d.rm[!is.na(d.rm$q_111_erythema_flush_v5),],
+       aes(x=d_age,y=..count..))+
+  stat_density(position="fill",geom="line",aes(color=q_111_angioedema,linetype="1"))+
+  stat_density(position="fill",geom="line",aes(color=q_111_urticaria,linetype="4"))+
+  stat_density(position="fill",geom="line",aes(color=q_111_pruritus,linetype="6"))+
+  stat_density(position="fill",geom="line",aes(color=q_111_erythema_flush_v5,linetype="8"))+
+  theme_bw()+
+  scale_fill_grey(guide=guide_legend(title = "Elicitor"))+
+  # guides(fill=guide_legend(reverse=F))+
+  ylab("Relative count")+
+    geom_segment(aes(xend=40,x=40,y=0,yend=1),linetype=2)+
+  ylim(c(0,0.6))+
+  geom_segment(aes(xend=60,x=60,y=0,yend=1),linetype=2)+
+  guides(color="none",
+         linetype=guide_legend(title = "Symptom"))+
+  scale_linetype_manual(values=c(1,4,3,8),
+                        labels=c("angiooedema",
+                                   "urticaria",
+                                   "pruritus",
+                                   "erythema"))+
+  theme(legend.position = c(0.1,0.1),
+        legend.justification = c(0,0),
+        legend.background = element_rect(fill="transparent"))
+  
+
+```
+
+## Respiratory 
+```{r}
+
+ggplot(d.rm[!is.na(d.rm$q_113_wheezing_expiratory_distress_v5),],aes(x=d_age,y=..count..))+
+  stat_density(position="fill",geom="line",aes(color=q_113_dyspnea,linetype="1"))+
+  stat_density(position="fill",geom="line",aes(color=q_113_wheezing_expiratory_distress_v5,linetype="2"))+
+  stat_density(position="fill",geom="line",aes(color=q_113_chest_tightness_v5,linetype="3"))+
+  stat_density(position="fill",geom="line",aes(color=q_113_respiratory_arrest,linetype="4"))+
+  theme_bw()+
+  scale_fill_grey(guide=guide_legend(title = "Elicitor"))+
+  # guides(fill=guide_legend(reverse=F))+
+  ylab("Relative count")+
+    geom_segment(aes(xend=40,x=40,y=0,yend=1),linetype=2)+
+  ylim(c(0,0.7))+
+  geom_segment(aes(xend=60,x=60,y=0,yend=1),linetype=2)+
+  guides(color="none",
+         linetype=guide_legend(title = "Symptom"))+
+  scale_linetype_manual(values=c(1,4,3,8),
+                        labels=c("dyspnea",
+                                 "Expiratory distress",
+                                 "Chest tightness",
+                                 "respiratory arrest"))+
+  theme(legend.position = c(0.1,0.4),
+        legend.justification = c(0,0),
+        legend.background = element_rect(fill="transparent"))
+```
+
+## Cardiac
+```{r}
+ggplot(d.rm[!is.na(d.rm$q_114_loss_of_consciousness),],
+       aes(x=d_age,y=..count..))+
+  stat_density(position="fill",geom="line",aes(color=q_114_dizziness,linetype="1"))+
+  stat_density(position="fill",geom="line",aes(color=q_114_loss_of_consciousness,linetype="2"))+
+  stat_density(position="fill",geom="line",aes(color=q_114_cardiac_arrest,linetype="3"))+
+  stat_density(position="fill",geom="line",aes(color=q_114_tachycardia,linetype="4"))+
+  theme_bw()+
+  scale_fill_grey(guide=guide_legend(title = "Elicitor"))+
+  # guides(fill=guide_legend(reverse=F))+
+  ylab("Relative count")+
+    geom_segment(aes(xend=40,x=40,y=0,yend=1),linetype=2)+
+  ylim(c(0,0.7))+
+  geom_segment(aes(xend=60,x=60,y=0,yend=1),linetype=2)+
+  guides(color="none",
+         linetype=guide_legend(title = "Symptom"))+
+  scale_linetype_manual(values=c(1,4,3,8),
+                        labels=c("Dizziness",
+                                 "Loss of conciousness",
+                                 "Cardiac arrest",
+                                 "Tachychardia"))+
+  theme(legend.position = c(0.1,0.9),
+        legend.justification = c(0,1),
+        legend.background = element_rect(fill="transparent"))
+```
+
+
+
