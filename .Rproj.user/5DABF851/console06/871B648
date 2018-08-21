@@ -155,3 +155,174 @@ Untracked files:
 
 nothing added to commit but untracked files present (use "git add" to track)
 ]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git add .
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git t[Kstatus
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+	[32mnew file:   .Rproj.user/190AF90D/build_options[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/files-pane.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/source-pane.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/windowlayoutstate.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/pcs/workbench-pane.pper[m
+	[32mnew file:   .Rproj.user/190AF90D/rmd-outputs[m
+	[32mnew file:   .Rproj.user/190AF90D/saved_source_markers[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/60CA46A7[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/90610168[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/A81FBB32[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/AD844DB4[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/CA5DA919[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/per/t/EC787077[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/14868EA9[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/23CD17B2[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/39E3B966[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/754474C5[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/B2D34ED7[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/FCBC0680[m
+	[32mnew file:   .Rproj.user/190AF90D/sdb/prop/INDEX[m
+	[32mnew file:   .Rproj.user/190AF90D/session-persistent-state[m
+	[32mnew file:   .Rproj.user/5DABF851/console06/871B648[m
+	[32mnew file:   .Rproj.user/5DABF851/console06/871B648.env[m
+	[32mnew file:   .Rproj.user/5DABF851/console06/INDEX001[m
+	[32mnew file:   .Rproj.user/5DABF851/sources/prop/78F1B6C7[m
+	[32mnew file:   .Rproj.user/5DABF851/sources/prop/INDEX[m
+	[32mnew file:   .Rproj.user/5DABF851/sources/s-6DD7FE34/7B3AEDE0[m
+	[32mnew file:   .Rproj.user/5DABF851/sources/s-6DD7FE34/7B3AEDE0-contents[m
+	[32mnew file:   .Rproj.user/5DABF851/sources/s-6DD7FE34/lock_file[m
+	[32mnew file:   .Rproj.user/shared/notebooks/100D14DF-Project/1/190AF90D/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/105DEB0D-20160613/1/190AF90D/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/105DEB0D-20160613/1/s/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/FB4D3291-REsearch outcomes in derm/1/190AF90D/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/FB4D3291-REsearch outcomes in derm/1/s/chunks.json[m
+	[32mnew file:   .Rproj.user/shared/notebooks/patch-chunk-names[m
+	[32mnew file:   .Rproj.user/shared/notebooks/paths[m
+	[32mnew file:   .gitignore[m
+	[32mnew file:   .~lock.Elderly Paper 27-06-2017.xlsx#[m
+	[32mnew file:   Elderly Paper 27-06-2017.xlsx[m
+	[32mnew file:   "Fig and tables 27.06.2017 DRAFT f\303\203\302\274r Wojciech.docx"[m
+	[32mnew file:   Project.Rmd[m
+	[32mnew file:   Project.docx[m
+	[32mnew file:   Project.html[m
+	[32mnew file:   elderly paper.Rproj[m
+	[32mnew file:   version 1 _ 150617.docx[m
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git pu[K[Kg[Kcommit -m "old status"
+[master (root-commit) 6febbc4] old status
+ 46 files changed, 1978 insertions(+)
+ create mode 100644 .Rproj.user/190AF90D/build_options
+ create mode 100644 .Rproj.user/190AF90D/pcs/files-pane.pper
+ create mode 100644 .Rproj.user/190AF90D/pcs/source-pane.pper
+ create mode 100644 .Rproj.user/190AF90D/pcs/windowlayoutstate.pper
+ create mode 100644 .Rproj.user/190AF90D/pcs/workbench-pane.pper
+ create mode 100644 .Rproj.user/190AF90D/rmd-outputs
+ create mode 100644 .Rproj.user/190AF90D/saved_source_markers
+ create mode 100644 .Rproj.user/190AF90D/sdb/per/t/60CA46A7
+ create mode 100644 .Rproj.user/190AF90D/sdb/per/t/90610168
+ create mode 100644 .Rproj.user/190AF90D/sdb/per/t/A81FBB32
+ create mode 100644 .Rproj.user/190AF90D/sdb/per/t/AD844DB4
+ create mode 100644 .Rproj.user/190AF90D/sdb/per/t/CA5DA919
+ create mode 100644 .Rproj.user/190AF90D/sdb/per/t/EC787077
+ create mode 100644 .Rproj.user/190AF90D/sdb/prop/14868EA9
+ create mode 100644 .Rproj.user/190AF90D/sdb/prop/23CD17B2
+ create mode 100644 .Rproj.user/190AF90D/sdb/prop/39E3B966
+ create mode 100644 .Rproj.user/190AF90D/sdb/prop/754474C5
+ create mode 100644 .Rproj.user/190AF90D/sdb/prop/B2D34ED7
+ create mode 100644 .Rproj.user/190AF90D/sdb/prop/FCBC0680
+ create mode 100644 .Rproj.user/190AF90D/sdb/prop/INDEX
+ create mode 100644 .Rproj.user/190AF90D/session-persistent-state
+ create mode 100644 .Rproj.user/5DABF851/console06/871B648
+ create mode 100644 .Rproj.user/5DABF851/console06/871B648.env
+ create mode 100644 .Rproj.user/5DABF851/console06/INDEX001
+ create mode 100644 .Rproj.user/5DABF851/sources/prop/78F1B6C7
+ create mode 100644 .Rproj.user/5DABF851/sources/prop/INDEX
+ create mode 100644 .Rproj.user/5DABF851/sources/s-6DD7FE34/7B3AEDE0
+ create mode 100644 .Rproj.user/5DABF851/sources/s-6DD7FE34/7B3AEDE0-contents
+ create mode 100644 .Rproj.user/5DABF851/sources/s-6DD7FE34/lock_file
+ create mode 100644 .Rproj.user/shared/notebooks/100D14DF-Project/1/190AF90D/chunks.json
+ create mode 100644 .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json
+ create mode 100644 .Rproj.user/shared/notebooks/105DEB0D-20160613/1/190AF90D/chunks.json
+ create mode 100644 .Rproj.user/shared/notebooks/105DEB0D-20160613/1/s/chunks.json
+ create mode 100644 .Rproj.user/shared/notebooks/FB4D3291-REsearch outcomes in derm/1/190AF90D/chunks.json
+ create mode 100644 .Rproj.user/shared/notebooks/FB4D3291-REsearch outcomes in derm/1/s/chunks.json
+ create mode 100644 .Rproj.user/shared/notebooks/patch-chunk-names
+ create mode 100644 .Rproj.user/shared/notebooks/paths
+ create mode 100644 .gitignore
+ create mode 100644 .~lock.Elderly Paper 27-06-2017.xlsx#
+ create mode 100644 Elderly Paper 27-06-2017.xlsx
+ create mode 100644 "Fig and tables 27.06.2017 DRAFT f\303\203\302\274r Wojciech.docx"
+ create mode 100644 Project.Rmd
+ create mode 100644 Project.docx
+ create mode 100644 Project.html
+ create mode 100644 elderly paper.Rproj
+ create mode 100644 version 1 _ 150617.docx
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git a[Kpush origin master
+fatal: 'origin' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git remote add
+usage: git remote add [<options>] <name> <url>
+
+    -f, --fetch           fetch the remote branches
+    --tags                import all tags and associated objects when fetching
+                          or do not fetch any tag at all (--no-tags)
+    -t, --track <branch>  branch(es) to track
+    -m, --master <branch>
+                          master branch
+    --mirror[=<push|fetch>]
+                          set up remote as a mirror to push to or fetch from
+
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git [K[K[K[Kgit a[Kremote add git@github.com:wolass//Elderly-paper.gitogit@github.com:wolass//Elderly-paper.gitrgit@github.com:wolass//Elderly-paper.gitigit@github.com:wolass//Elderly-paper.git[Cgit@github.com:wolass//Elderly-paper.gitigit@github.com:wolass//Elderly-paper.gitngit@github.com:wolass//Elderly-paper.git git@github.com:wolass//Elderly-paper.git
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git push origin master
+fatal: remote error: 
+  wolass//Elderly-paper is not a valid repository name
+  Email support@github.com for help
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git remot [Ke remove origin
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git remote remove origin[2Ppush origin masterremote add origin git@github.com:wolass//Elderly-paper.git[C[1PElderly-paper.git
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git remote add origin git@github.com:wolass/Elderly-paper.gitremove origin[K
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git remote remove originadd origin git@github.com:wolass/Elderly-paper.git
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git remote add origin git@github.com:wolass/Elderly-paper.gitremove origin[Kadd origin git@github.com:wolass/Elderly-paper.gitremove origin[Kadd origin git@github.com:wolass/Elderly-paper.gitremove origin[K[2Ppush origin master
+Counting objects: 63, done.
+Delta compression using up to 4 threads.
+Compressing objects:   2% (1/48)   Compressing objects:   4% (2/48)   Compressing objects:   6% (3/48)   Compressing objects:   8% (4/48)   Compressing objects:  10% (5/48)   Compressing objects:  12% (6/48)   Compressing objects:  14% (7/48)   Compressing objects:  16% (8/48)   Compressing objects:  18% (9/48)   Compressing objects:  20% (10/48)   Compressing objects:  22% (11/48)   Compressing objects:  25% (12/48)   Compressing objects:  27% (13/48)   Compressing objects:  29% (14/48)   Compressing objects:  31% (15/48)   Compressing objects:  33% (16/48)   Compressing objects:  35% (17/48)   Compressing objects:  37% (18/48)   Compressing objects:  39% (19/48)   Compressing objects:  41% (20/48)   Compressing objects:  43% (21/48)   Compressing objects:  45% (22/48)   Compressing objects:  47% (23/48)   Compressing objects:  50% (24/48)   Compressing objects:  52% (25/48)   Compressing objects:  54% (26/48)   Compressing objects:  56% (27/48)   Compressing objects:  58% (28/48)   Compressing objects:  60% (29/48)   Compressing objects:  62% (30/48)   Compressing objects:  64% (31/48)   Compressing objects:  66% (32/48)   Compressing objects:  68% (33/48)   Compressing objects:  70% (34/48)   Compressing objects:  72% (35/48)   Compressing objects:  75% (36/48)   Compressing objects:  77% (37/48)   Compressing objects:  79% (38/48)   Compressing objects:  81% (39/48)   Compressing objects:  83% (40/48)   Compressing objects:  85% (41/48)   Compressing objects:  87% (42/48)   Compressing objects:  89% (43/48)   Compressing objects:  91% (44/48)   Compressing objects:  93% (45/48)   Compressing objects:  95% (46/48)   Compressing objects:  97% (47/48)   Compressing objects: 100% (48/48)   Compressing objects: 100% (48/48), done.
+Writing objects:   1% (1/63)   Writing objects:   3% (2/63)   Writing objects:   4% (3/63)   Writing objects:   6% (4/63)   Writing objects:   7% (5/63)   Writing objects:   9% (6/63)   Writing objects:  11% (7/63)   Writing objects:  12% (8/63)   Writing objects:  14% (9/63)   Writing objects:  15% (10/63)   Writing objects:  17% (11/63)   Writing objects:  19% (12/63)   Writing objects:  20% (13/63)   Writing objects:  22% (14/63)   Writing objects:  23% (15/63)   Writing objects:  26% (17/63)   Writing objects:  28% (18/63)   Writing objects:  30% (19/63)   Writing objects:  31% (20/63)   Writing objects:  33% (21/63)   Writing objects:  34% (22/63)   Writing objects:  36% (23/63)   Writing objects:  38% (24/63)   Writing objects:  39% (25/63)   Writing objects:  41% (26/63)   Writing objects:  42% (27/63)   Writing objects:  44% (28/63)   Writing objects:  46% (29/63)   Writing objects:  47% (30/63)   Writing objects:  49% (31/63)   Writing objects:  50% (32/63)   Writing objects:  52% (33/63)   Writing objects:  53% (34/63)   Writing objects:  55% (35/63)   Writing objects:  57% (36/63)   Writing objects:  58% (37/63)   Writing objects:  60% (38/63)   Writing objects:  61% (39/63)   Writing objects:  63% (40/63)   Writing objects:  65% (41/63)   Writing objects:  66% (42/63)   Writing objects:  68% (43/63)   Writing objects:  69% (44/63)   Writing objects:  71% (45/63)   Writing objects:  73% (46/63)   Writing objects:  74% (47/63)   Writing objects:  76% (48/63)   Writing objects:  77% (49/63)   Writing objects:  79% (50/63)   Writing objects:  80% (51/63)   Writing objects:  82% (52/63)   Writing objects:  84% (53/63)   Writing objects:  85% (54/63)   Writing objects:  87% (55/63)   Writing objects:  88% (56/63)   Writing objects:  90% (57/63)   Writing objects:  92% (58/63)   Writing objects:  93% (59/63)   Writing objects:  95% (60/63)   Writing objects:  96% (61/63)   Writing objects:  98% (62/63)   Writing objects: 100% (63/63)   Writing objects: 100% (63/63), 707.71 KiB | 4.78 MiB/s, done.
+Total 63 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/2)   [Kremote: Resolving deltas:  50% (1/2)   [Kremote: Resolving deltas: 100% (2/2)   [Kremote: Resolving deltas: 100% (2/2), done.[K
+To github.com:wolass/Elderly-paper.git
+ * [new branch]      master -> master
+m[Kgit status
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+	[31mmodified:   .Rproj.user/5DABF851/console06/INDEX001[m
+	[31mmodified:   .Rproj.user/5DABF851/sources/prop/INDEX[m
+	[31mdeleted:    .Rproj.user/5DABF851/sources/s-6DD7FE34/7B3AEDE0[m
+	[31mdeleted:    .Rproj.user/5DABF851/sources/s-6DD7FE34/7B3AEDE0-contents[m
+	[31mdeleted:    .Rproj.user/5DABF851/sources/s-6DD7FE34/lock_file[m
+	[31mmodified:   .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json[m
+	[31mmodified:   .Rproj.user/shared/notebooks/paths[m
+	[31mmodified:   .gitignore[m
+	[31mmodified:   Project.Rmd[m
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31mProject_files/[m
+	[31mREADME[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git add . 

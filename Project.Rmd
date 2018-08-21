@@ -63,17 +63,19 @@ panderOptions('table.split.table',Inf)
 load("../anaphylaxis/data3.R")
 # load("data2.R")
 data <- data3[,-16]
+load("../anaphylaxis/data4.R")
+data <- data4
 # I could make a nice table showing  mistakes in our database. 
 # length(which(data$q_111=="no"&data$q_111_angioedema=="unknown"))
 
 ### Here I will introduce functions for database conformity
-for(i in c(16:55,65,75,178:205,209:220,222:223)){
-  levels(data[,i]) <- c(levels(data[,i])[1:2],NA)  
-}
-for(i in c(79:83)){
-  levels(data[,i]) <- c(levels(data[,i])[1:2],"no")  
-}
-levels(data$q_421_exercise) <- c("no","mild","moderate","vigorous",NA)
+# for(i in c(16:55,65,75,178:205,209:220,222:223)){
+  # levels(data[,i]) <- c(levels(data[,i])[1:2],NA)  
+# }
+# for(i in c(79:83)){
+#   levels(data[,i]) <- c(levels(data[,i])[1:2],"no")  
+# }
+# levels(data$q_421_exercise) <- c("no","mild","moderate","vigorous",NA)
 
 no.of.centers <- length(levels(data$b_centres_id))
 no.of.countries <- length(summary(data$d_centres_country)) - length(which(summary(data$d_centres_country)==0))
@@ -159,15 +161,39 @@ d_410_atopic[d.rm$q_410_ad_cur=="yes"|
 
 d.rm$d_410_atopic <- d_410_atopic
 table(d.rm$d_410_atopic,d.rm$ages)
-pairwise.chisq.test(d.rm$d_410_atopic,d.rm$ages)
+pairwise.chisq.test(d.rm$d_410_atopic,d.rm$ages,p.adj = "bonf")
+
+x <- sample(1:2, 1e3, TRUE)
+g <- sample(1:4, 1e3, TRUE)
+pairwise.chisq.test(x = d.rm$d_410_atopic,
+                    g = d.rm$ages, 
+                    p.adj = "bonf")
+tab <- table(g, x)
+pairwise.fisher.test(tab, p.adj = "bonf")
+
+pairwise.chisq.test(x = , g, p.adj = "bonf")
+
 ```
 
 # Cardiovascular disease 
 
 ```{r}
-table(d.rm$q_410_cardio_cur,d.rm$ages)
+temp <- table(d.rm$q_410_cardio_cur,d.rm$ages) 
 pairwise.chisq.test(d.rm$q_410_cardio_cur,d.rm$ages)
+pairwise.chisq.test(temp)
+
 ```
+
+# Urticaria
+
+```{r}
+table(d.rm$q_410_urtic_cur,d.rm$ages)
+pairwise.chisq.test(d.rm$q_410_urtic_cur[which(d.rm$q_410_urtic_cur%in%c("no","yes"))],
+                    d.rm$ages[which(d.rm$q_410_urtic_cur%in%c("no","yes"))])
+
+
+```
+
 
 # Mastocytosis
 
@@ -587,5 +613,23 @@ ggplot(d.rm[!is.na(d.rm$q_114_loss_of_consciousness),],
         legend.background = element_rect(fill="transparent"))
 ```
 
+# Biphasic risk
+
+left Biphasic, top - Hypotension as a symptom. 
+
+```{r}
+table(d.rm$q_130_biphasic_v4,d.rm$q_114_hypotension_collapse_v5) %>% {.[2:3,]}
+table(d.rm$q_130_biphasic_v4,d.rm$q_114_hypotension_collapse_v5) %>% {.[2:3,]} %>% summary()
+```
+
+Unknown elicitor showed relevant meanig that unknown trigger-cases were more often connected with biphasic reactions 
+
+```{r}
+table(d.rm$q_130_biphasic_v4,d.rm$q_310_trigger) %>% {.[2:3,1:2]}
+table(d.rm$q_130_biphasic_v4,d.rm$q_310_trigger) %>% {.[2:3,1:2]} %>% prop.table(2)
+table(d.rm$q_130_biphasic_v4,d.rm$q_310_trigger) %>% {.[2:3,1:2]} %>% summary()
+
+
+```
 
 
