@@ -326,3 +326,27 @@ Untracked files:
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git add . 
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ gi [Kt commit- [K[K -m ""3" "i"s"s"u"e"s" "d"o"n"e" " "[1P"3" "t"o" "g"o"
+[master 9893a91] 3 issues done 3 to go
+ 20 files changed, 244 insertions(+), 45 deletions(-)
+ rewrite .Rproj.user/5DABF851/console06/INDEX001 (86%)
+ delete mode 100644 .Rproj.user/5DABF851/sources/s-6DD7FE34/7B3AEDE0
+ delete mode 100644 .Rproj.user/5DABF851/sources/s-6DD7FE34/7B3AEDE0-contents
+ delete mode 100644 .Rproj.user/5DABF851/sources/s-6DD7FE34/lock_file
+ rewrite .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json (100%)
+ delete mode 100644 .Rproj.user/shared/notebooks/FB4D3291-REsearch outcomes in derm/1/190AF90D/chunks.json
+ delete mode 100644 .Rproj.user/shared/notebooks/FB4D3291-REsearch outcomes in derm/1/s/chunks.json
+ create mode 100644 Project_files/figure-docx/unnamed-chunk-37-1.png
+ create mode 100644 Project_files/figure-docx/unnamed-chunk-37-2.png
+ create mode 100644 Project_files/figure-docx/unnamed-chunk-38-1.png
+ create mode 100644 Project_files/figure-docx/unnamed-chunk-39-1.png
+ create mode 100644 Project_files/figure-docx/unnamed-chunk-40-1.png
+ create mode 100644 Project_files/figure-docx/unnamed-chunk-41-1.png
+ create mode 100644 README
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git commit -m "3 issues done 3 to go"
+On branch master
+Changes not staged for commit:
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+
+no changes added to commit
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git add -,[Km [K[K[K.

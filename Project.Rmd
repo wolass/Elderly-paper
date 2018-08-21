@@ -163,24 +163,15 @@ d.rm$d_410_atopic <- d_410_atopic
 table(d.rm$d_410_atopic,d.rm$ages)
 pairwise.chisq.test(d.rm$d_410_atopic,d.rm$ages,p.adj = "bonf")
 
-x <- sample(1:2, 1e3, TRUE)
-g <- sample(1:4, 1e3, TRUE)
-pairwise.chisq.test(x = d.rm$d_410_atopic,
-                    g = d.rm$ages, 
-                    p.adj = "bonf")
-tab <- table(g, x)
-pairwise.fisher.test(tab, p.adj = "bonf")
-
-pairwise.chisq.test(x = , g, p.adj = "bonf")
-
 ```
 
 # Cardiovascular disease 
 
 ```{r}
 temp <- table(d.rm$q_410_cardio_cur,d.rm$ages) 
-pairwise.chisq.test(d.rm$q_410_cardio_cur,d.rm$ages)
-pairwise.chisq.test(temp)
+
+pairwise.chisq.test(x = d.rm$q_410_cardio_cur[d.rm$q_410_cardio_cur%in%c("no","yes")] %>% {as.character(.)},
+                    g = d.rm$ages[d.rm$q_410_cardio_cur%in%c("no","yes")])
 
 ```
 
@@ -188,10 +179,13 @@ pairwise.chisq.test(temp)
 
 ```{r}
 table(d.rm$q_410_urtic_cur,d.rm$ages)
-pairwise.chisq.test(d.rm$q_410_urtic_cur[which(d.rm$q_410_urtic_cur%in%c("no","yes"))],
-                    d.rm$ages[which(d.rm$q_410_urtic_cur%in%c("no","yes"))])
 
+valF <- function(val){
+  pairwise.chisq.test(x = val[which(val%in%c("no","yes"))] %>% as.character(),
+                    g = d.rm$ages[which(val%in%c("no","yes"))])
 
+}
+valF(d.rm$q_410_urtic_cur)
 ```
 
 
@@ -199,21 +193,21 @@ pairwise.chisq.test(d.rm$q_410_urtic_cur[which(d.rm$q_410_urtic_cur%in%c("no","y
 
 ```{r}
 table(d.rm$q_410_masto_cur,d.rm$ages)
-pairwise.chisq.test(d.rm$q_410_masto_cur,d.rm$ages)
+valF(d.rm$q_410_masto_cur)
 ```
 
 # Thyroid disease 
 
 ```{r}
 table(d.rm$q_410_thyroid_cur,d.rm$ages)
-pairwise.chisq.test(d.rm$q_410_thyroid_cur,d.rm$ages)
+valF(d.rm$q_410_thyroid_cur)
 ```
 
 # Physical exercise 
 
 ```{r}
-table(d.rm$q_421_exercise,d.rm$ages)
-pairwise.chisq.test(d.rm$q_421_exercise,d.rm$ages)
+table(d.rm$q_4212_exercise_intensity,d.rm$ages)
+pairwise.chisq.test(d.rm$q_4212_exercise_intensity,d.rm$ages)
 ```
 
 # Psychological stress
@@ -227,14 +221,14 @@ pairwise.chisq.test(d.rm$q_422_stress,d.rm$ages)
 
 ```{r}
 table(d.rm$q_425_alcohol,d.rm$ages)
-pairwise.chisq.test(d.rm$q_425_alcohol,d.rm$ages)
+valF(d.rm$q_425_alcohol)
 ```
 
 # Menstruation
-frd
+
 ```{r}
-table(d.rm$q_424_menstruation,d.rm$ages)
-pairwise.chisq.test(d.rm$q_424_menstruation,d.rm$ages)
+table(d.rm$q_4241_menstruation,d.rm$ages)
+valF(d.rm$q_4241_menstruation)
 ```
 
 This variable should not be taken into account I think. The elderly group does not have any menstrruation...
@@ -244,31 +238,34 @@ This variable should not be taken into account I think. The elderly group does n
 
 ```{r}
 table(d.rm$q_410_infect_cur,d.rm$ages)
-pairwise.chisq.test(d.rm$q_410_infect_cur,d.rm$ages)
+valF(d.rm$q_410_infect_cur)
 ```
 
 # repeated reaction
 
 ```{r}
 table(d.rm$q_160_ever_react,d.rm$ages) 
-pairwise.chisq.test(d.rm$q_160_ever_react,d.rm$ages)
+valF(d.rm$q_160_ever_react)
 ```
 
 # Elicitors
 
-Total
+## Total
 
 ```{r}
 Fun <- function(x,selector=rep(TRUE,nrow(d.rm))){
   a <- table(d.rm[selector,x],d.rm$ages[selector]) 
-  b <- pairwise.chisq.test(d.rm[selector,x],d.rm$ages[selector])
+  b <- pairwise.chisq.test(d.rm[selector,x] %>% as.character,
+                           d.rm$ages[selector] %>% as.character)
   return(list(c(x),a,b))
 }
+
 Fun("q_310_trigger",selector=rep(TRUE,nrow(d.rm)))
+
 
 ```
 
-Elicitor known 
+## Elicitor known 
 ```{r}
 d.rm$elicitor_known<- rep("no",nrow(d.rm))
 d.rm$elicitor_known[d.rm$q_310_trigger=="yes"] <- "yes"
@@ -276,7 +273,7 @@ d.rm$elicitor_known[d.rm$q_310_trigger=="yes"] <- "yes"
 Fun("elicitor_known")
 ```
 
-Elicitor suspected
+## Elicitor suspected
 ```{r}
 d.rm$elicitor_suspected<- rep("no",nrow(d.rm))
 d.rm$elicitor_suspected[d.rm$q_310_trigger=="reasonable suspicion"] <- "yes"
@@ -284,7 +281,7 @@ d.rm$elicitor_suspected[d.rm$q_310_trigger=="reasonable suspicion"] <- "yes"
 Fun("elicitor_suspected")
 ```
 
-Drugs 
+## Drugs 
 ```{r}
 
 d.rm$elicitor_drug<- rep("no",nrow(d.rm))
@@ -293,7 +290,7 @@ d.rm$elicitor_drug[d.rm$d_elicitor_group=="drug"] <- "yes"
 Fun("elicitor_drug")
 ```
 
-analgesics
+### analgesics
 ```{r}
 
 d.rm$elicitor_analg<- rep("no",nrow(d.rm))
@@ -303,7 +300,7 @@ d.rm$elicitor_analg[d.rm$q_332_analgesic=="no"] <- "no"
 Fun("elicitor_analg")
 ```
 
-antibiotics
+### antibiotics
 ```{r}
 
 d.rm$elicitor_anty<- rep("no",nrow(d.rm))
@@ -314,7 +311,7 @@ Fun("elicitor_anty")
 ```
 
 
-Local anesthetics
+### Local anesthetics
 ```{r}
 d.rm$elicitor_LA<- rep("no",nrow(d.rm))
 d.rm$elicitor_LA[!is.na(d.rm$q_3361_local_anaesthetics_v4)] <- "yes"
@@ -324,7 +321,8 @@ Fun("elicitor_LA")
 ```
 
 
-x-ray (contrast agent)
+### x-ray (contrast agent)
+
 ```{r}
 d.rm$elicitor_contrast<- rep("no",nrow(d.rm))
 d.rm$elicitor_contrast[!is.na(d.rm$q_335_xray_cm)] <- "yes"
@@ -333,7 +331,7 @@ d.rm$elicitor_contrast[d.rm$q_335_xray_cm=="no"] <- "no"
 Fun("elicitor_contrast")
 ```
 
-PPI
+### PPI
 ```{r}
 d.rm$elicitor_ppi<- rep("no",nrow(d.rm))
 d.rm$elicitor_ppi[!is.na(d.rm$q_339_ppi_v5)] <- "yes"
@@ -342,7 +340,7 @@ d.rm$elicitor_ppi[d.rm$q_339_ppi_v5=="no"] <- "no"
 Fun("elicitor_ppi")
 ```
 
-Cardiovascular drugs
+### Cardiovascular drugs
 
 Here the variable `d.rm$q_333_cardio_drugs` was unfortunately not adequate to use. 
 I made a new variable `elicitor_cvd` which answered "yes" whenever either ACE-I, AT2 or Bebtablockers were used. If neither of these drugs were used in a given patient it resulted in "no".
@@ -358,7 +356,7 @@ d.rm$elicitor_cvd[d.rm$q_333_cardio_drugs=="no"] <- "no"
 Fun("elicitor_cvd")
 ```
 
-Insects
+## Insects
 ```{r}
 d.rm$elicitor_insects<- rep("no",nrow(d.rm))
 d.rm$elicitor_insects[!is.na(d.rm$q_340_insects)] <- "yes"
@@ -367,7 +365,7 @@ d.rm$elicitor_insects[d.rm$q_340_insects=="no"] <- "no"
 Fun("elicitor_insects")
 ```
 
-Yellow jacket
+### Yellow jacket
 ```{r}
 d.rm$elicitor_yj<- rep("no",nrow(d.rm))
 d.rm$elicitor_yj[d.rm$q_340_insects=="yellow jacket"] <- "yes"
@@ -375,7 +373,7 @@ d.rm$elicitor_yj[d.rm$q_340_insects=="yellow jacket"] <- "yes"
 Fun("elicitor_yj")
 ```
 
-Bee
+### Bee
 ```{r}
 d.rm$elicitor_bee<- rep("no",nrow(d.rm))
 d.rm$elicitor_bee[d.rm$q_340_insects=="bee"] <- "yes"
@@ -383,7 +381,7 @@ d.rm$elicitor_bee[d.rm$q_340_insects=="bee"] <- "yes"
 Fun("elicitor_bee")
 ```
 
-Hornet
+### Hornet
 ```{r}
 d.rm$elicitor_hornet<- rep("no",nrow(d.rm))
 d.rm$elicitor_hornet[d.rm$q_340_insects=="hornet"] <- "yes"
@@ -391,7 +389,8 @@ d.rm$elicitor_hornet[d.rm$q_340_insects=="hornet"] <- "yes"
 Fun("elicitor_hornet")
 ```
 
-# Food
+## Food
+
 ```{r}
 d.rm$elicitor_food<- rep("no",nrow(d.rm))
 d.rm$elicitor_food[d.rm$d_elicitor_group=="food"] <- "yes"
@@ -406,7 +405,8 @@ Fun.f <- function(x,selector=rep(TRUE,nrow(d.rm.f))){
 
 ```
 
-## wheat
+### wheat
+
 ```{r}
 d.rm.f$elicitor_wheat<- rep("no",nrow(d.rm.f))
 d.rm.f$elicitor_wheat[d.rm.f$q_324_cereals=="wheat floar"] <- "yes"
@@ -414,7 +414,8 @@ d.rm.f$elicitor_wheat[d.rm.f$q_324_cereals=="wheat floar"] <- "yes"
 Fun.f("elicitor_wheat")
 ```
 
-## hazelnut
+### hazelnut
+
 ```{r}
 d.rm.f$elicitor_HN<- rep("no",nrow(d.rm.f))
 d.rm.f$elicitor_HN[d.rm.f$q_322_treenuts=="hazelnut"] <- "yes"
@@ -422,7 +423,8 @@ d.rm.f$elicitor_HN[d.rm.f$q_322_treenuts=="hazelnut"] <- "yes"
 Fun.f("elicitor_HN")
 ```
 
-## soy
+### soy
+
 ```{r}
 d.rm.f$elicitor_soy<- rep("no",nrow(d.rm.f))
 d.rm.f$elicitor_soy[d.rm.f$q_326_legumes=="soy"] <- "yes"
@@ -430,7 +432,8 @@ d.rm.f$elicitor_soy[d.rm.f$q_326_legumes=="soy"] <- "yes"
 Fun.f("elicitor_soy")
 ```
 
-## celery
+### celery
+
 ```{r}
 d.rm.f$elicitor_celery<- rep("no",nrow(d.rm.f))
 d.rm.f$elicitor_celery[d.rm.f$q_323_vegetables=="celery"] <- "yes"
@@ -438,7 +441,8 @@ d.rm.f$elicitor_celery[d.rm.f$q_323_vegetables=="celery"] <- "yes"
 Fun.f("elicitor_celery")
 ```
 
-## shellfish
+### shellfish
+
 ```{r}
 d.rm.f$elicitor_shellfish<- rep("no",nrow(d.rm.f))
 d.rm.f$elicitor_shellfish[d.rm.f$q_325_animal_products%in%
@@ -448,7 +452,8 @@ d.rm.f$elicitor_shellfish[d.rm.f$q_325_animal_products%in%
 Fun.f("elicitor_shellfish")
 ```
 
-## peanut
+### peanut
+
 ```{r}
 d.rm.f$elicitor_peanut<- rep("no",nrow(d.rm.f))
 d.rm.f$elicitor_peanut[which(d.rm.f$q_326_legumes=="peanut")] <- "yes"
@@ -457,7 +462,8 @@ d.rm.f$elicitor_peanut[which(d.rm.f$q_326_legumes=="peanut")] <- "yes"
 Fun.f("elicitor_peanut")
 ```
 
-# Immunotherapy (SIT)
+## Immunotherapy (SIT)
+
 ```{r}
 d.rm$elicitor_SIT<- rep("no",nrow(d.rm))
 d.rm$elicitor_SIT[which(d.rm$d_elicitor_group=="SIT")] <- "yes"
@@ -466,6 +472,9 @@ d.rm$elicitor_SIT[which(d.rm$d_elicitor_group=="SIT")] <- "yes"
 Fun("elicitor_SIT")
 ```
 
+
+
+# Plots 
 
 ```{r}
 require(ggplot2)
@@ -501,6 +510,7 @@ So we can do it - the question now is what do we want to display? Food? or any o
 Second plot - symptoms
 
 ## Gastrointestinal
+
 ```{r}
 
 ggplot(d.rm[!is.na(d.rm$q_112_vomiting),],aes(x=d_age,y=..count..))+
@@ -530,6 +540,7 @@ ggplot(d.rm[!is.na(d.rm$q_112_vomiting),],aes(x=d_age,y=..count..))+
 ```
 
 ## Skin
+
 ```{r}
 
 ggplot(d.rm[!is.na(d.rm$q_111_erythema_flush_v5),],
@@ -560,6 +571,7 @@ ggplot(d.rm[!is.na(d.rm$q_111_erythema_flush_v5),],
 ```
 
 ## Respiratory 
+
 ```{r}
 
 ggplot(d.rm[!is.na(d.rm$q_113_wheezing_expiratory_distress_v5),],aes(x=d_age,y=..count..))+
@@ -587,6 +599,7 @@ ggplot(d.rm[!is.na(d.rm$q_113_wheezing_expiratory_distress_v5),],aes(x=d_age,y=.
 ```
 
 ## Cardiac
+
 ```{r}
 ggplot(d.rm[!is.na(d.rm$q_114_loss_of_consciousness),],
        aes(x=d_age,y=..count..))+
@@ -615,11 +628,18 @@ ggplot(d.rm[!is.na(d.rm$q_114_loss_of_consciousness),],
 
 # Biphasic risk
 
-left Biphasic, top - Hypotension as a symptom. 
+left Biphasic, top - Hypotension as a symptom. Alle cases, no age differentiation:
 
 ```{r}
-table(d.rm$q_130_biphasic_v4,d.rm$q_114_hypotension_collapse_v5) %>% {.[2:3,]}
-table(d.rm$q_130_biphasic_v4,d.rm$q_114_hypotension_collapse_v5) %>% {.[2:3,]} %>% summary()
+table(d.rm$q_130_biphasic_v4,d.rm$q_114_hypotension_collapse_v5)
+```
+
+
+```{r}
+temp <- split(d.rm, d.rm$ages)
+lapply(temp,function(age){
+  table(age$q_130_biphasic_v4,age$q_114_hypotension_collapse_v5) %>% {.[2:3,]} %>% summary()
+})
 ```
 
 Unknown elicitor showed relevant meanig that unknown trigger-cases were more often connected with biphasic reactions 
