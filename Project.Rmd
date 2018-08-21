@@ -1,19 +1,12 @@
 ---
+title: "Elderly Paper - data analysis"
+author: W. Francuzik
+date: 21.08.2018
 output:
   word_document: default
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
-Die Tabellen und Abbildungen in dem Word.doc sind noch mit den Vorjahres-Datensatz berechnet. Alles müsste mit den >10.000 Fällen berechnet werden.
-
-Aber Achtung ich nehme nur die Fälle mit Ring&Messmer ≥ grad II und auch nur aus den Ländern, die >100 Fälle gemeldet haben (Germany, Austria, Switzerland, Greece, Poland, Spain, France, 
-Bulgaria, Italy, Ireland).
-
-In der Exceltabelle im Anhang habe ich schon mit den neuen Zahlen begonnen.
-Ich kann allerdings die Korrektur für Multiples Testen in SPSS nicht.
-Ich würde auch immer gern wissen, zwischen welchen Gruppen genau ein Unterschied besteht, wenn der Chi² test signifikant ist.
-
-Es sind 2 Abbildungen in dem Manuskript. Hier wäre die Frage, ob Du so ähnliche Abbildungen für die Erwachsenen erstellen kannst?
 
 # Loading the data
 
@@ -63,7 +56,7 @@ panderOptions('table.split.table',Inf)
 load("../anaphylaxis/data3.R")
 # load("data2.R")
 data <- data3[,-16]
-load("../anaphylaxis/data4.R")
+load("data4.R")
 data <- data4
 # I could make a nice table showing  mistakes in our database. 
 # length(which(data$q_111=="no"&data$q_111_angioedema=="unknown"))
@@ -342,18 +335,22 @@ Fun("elicitor_ppi")
 
 ### Cardiovascular drugs
 
-Here the variable `d.rm$q_333_cardio_drugs` was unfortunately not adequate to use. 
-I made a new variable `elicitor_cvd` which answered "yes" whenever either ACE-I, AT2 or Bebtablockers were used. If neither of these drugs were used in a given patient it resulted in "no".
+Here Only 1 patient in the youg adults group was positive for the cardio drugs. 
+
 
 ```{r}
 d.rm$elicitor_cvd<- rep("no",nrow(d.rm))
-d.rm$elicitor_cvd[d.rm$q_423_ace=="yes"] <- "yes"
-d.rm$elicitor_cvd[d.rm$q_423_at2=="yes"] <- "yes"
-d.rm$elicitor_cvd[d.rm$q_423_beta=="yes"] <- "yes"
-d.rm$elicitor_cvd[!is.na(d.rm$q_333_cardio_drugs)] <- "yes"
-d.rm$elicitor_cvd[d.rm$q_333_cardio_drugs=="no"] <- "no"
+d.rm$elicitor_cvd[which(d.rm$q_333_cardio_drugs=="ACE-inhibitor"|
+                  d.rm$q_333_cardio_drugs=="Ca2+-antagonist"|
+                    d.rm$q_333_cardio_drugs=="cardio drugs")] <- "yes"
+# d.rm$elicitor_cvd[d.rm$q_423_at2=="yes"] <- "yes"
+# d.rm$elicitor_cvd[d.rm$q_423_beta=="yes"] <- "yes"
+# d.rm$elicitor_cvd[!is.na(d.rm$q_333_cardio_drugs)] <- "yes"
+# d.rm$elicitor_cvd[d.rm$q_333_cardio_drugs=="no"] <- "no"
+
 
 Fun("elicitor_cvd")
+# pairwise.fisher.test(d.rm$elicitor_cvd,d.rm$ages)
 ```
 
 ## Insects
@@ -478,11 +475,11 @@ Fun("elicitor_SIT")
 
 ```{r}
 require(ggplot2)
-ggplot(d.rm[d.rm$d_elicitor_group!="insects",], aes(d_age,fill=d_elicitor_group))+
+ggplot(d.rm[d.rm$d_elicitor_group!="cold",], aes(d_age,fill=d_elicitor_group))+
   geom_area(stat = 'bin',
             aes(y=..density..),
             position = "stack",
-            binwidth=9,
+            binwidth=10,
             linetype=1,
             size =1,
             colour="black")+
@@ -650,6 +647,42 @@ table(d.rm$q_130_biphasic_v4,d.rm$q_310_trigger) %>% {.[2:3,1:2]} %>% prop.table
 table(d.rm$q_130_biphasic_v4,d.rm$q_310_trigger) %>% {.[2:3,1:2]} %>% summary()
 
 
+```
+
+```{r}
+e_423_five <- rep("no",length(d.rm[,1]))
+e_423_five[which(d.rm$q_423_ace=="yes"|
+                 d.rm$q_423_asa=="yes"|
+                 d.rm$q_423_at2 == "yes"|
+                 d.rm$q_423_beta == "yes"|
+                 d.rm$q_423_ppi_v6 == "yes")] <- "yes"
+d.rm$e_423_five <- factor(e_423_five)
+
+e_420_CoF_incl_infect <- rep("no",length(d.rm[,1]))
+e_420_CoF_incl_infect[which(
+  d.rm$q_4212_exercise_intensity=="vigorous eg. running, heavy manual work, competitive sport"|
+  d.rm$q_4241_menstruation=="yes"|
+  d.rm$q_425_alcohol=="yes"|
+  d.rm$q_422_stress == "yes"|
+  d.rm$e_423_five=="yes"|
+  d.rm$q_410_infect_cur == "yes"
+    )] <- "yes"
+
+d.rm$e_420_CoF_incl_infect <- factor(e_420_CoF_incl_infect)
+```
+
+# e_420_CoF_incl_infect
+
+```{r}
+table(d.rm$e_420_CoF_incl_infect,d.rm$ages)
+valF(d.rm$e_420_CoF_incl_infect)
+```
+
+# e_423_five
+
+```{r}
+table(d.rm$e_423_five,d.rm$ages)
+valF(d.rm$e_423_five)
 ```
 
 

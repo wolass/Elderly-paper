@@ -350,3 +350,34 @@ Changes not staged for commit:
 
 no changes added to commit
 ]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git add -,[Km [K[K[K.
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git commit -m "hotfix"
+[master 124a850] hotfix
+ 3 files changed, 96 insertions(+), 52 deletions(-)
+ rewrite .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json (79%)
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+	[31mmodified:   .Rproj.user/5DABF851/sources/prop/INDEX[m
+	[31mmodified:   .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json[m
+	[31mmodified:   .Rproj.user/shared/notebooks/paths[m
+	[31mmodified:   Project.Rmd[m
+	[31mmodified:   Project.docx[m
+	[31mmodified:   Project.html[m
+	[31mdeleted:    Project_files/figure-docx/unnamed-chunk-37-1.png[m
+	[31mdeleted:    Project_files/figure-docx/unnamed-chunk-37-2.png[m
+	[31mdeleted:    Project_files/figure-docx/unnamed-chunk-38-1.png[m
+	[31mdeleted:    Project_files/figure-docx/unnamed-chunk-39-1.png[m
+	[31mdeleted:    Project_files/figure-docx/unnamed-chunk-40-1.png[m
+	[31mdeleted:    Project_files/figure-docx/unnamed-chunk-41-1.png[m
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31mdata4.R[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git add .
