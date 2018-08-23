@@ -56,8 +56,8 @@ panderOptions('table.split.table',Inf)
 load("../anaphylaxis/data3.R")
 # load("data2.R")
 data <- data3[,-16]
-load("data4.R")
-data <- data4
+#load("data4.R")
+#data <- data4
 # I could make a nice table showing  mistakes in our database. 
 # length(which(data$q_111=="no"&data$q_111_angioedema=="unknown"))
 
@@ -199,8 +199,8 @@ valF(d.rm$q_410_thyroid_cur)
 # Physical exercise 
 
 ```{r}
-table(d.rm$q_4212_exercise_intensity,d.rm$ages)
-pairwise.chisq.test(d.rm$q_4212_exercise_intensity,d.rm$ages)
+table(d.rm$q_421_exercise,d.rm$ages)
+pairwise.chisq.test(d.rm$q_421_exercise,d.rm$ages)
 ```
 
 # Psychological stress
@@ -220,8 +220,8 @@ valF(d.rm$q_425_alcohol)
 # Menstruation
 
 ```{r}
-table(d.rm$q_4241_menstruation,d.rm$ages)
-valF(d.rm$q_4241_menstruation)
+table(d.rm$q_424_menstruation,d.rm$ages)
+valF(d.rm$q_424_menstruation)
 ```
 
 This variable should not be taken into account I think. The elderly group does not have any menstrruation...
@@ -623,29 +623,30 @@ ggplot(d.rm[!is.na(d.rm$q_114_loss_of_consciousness),],
         legend.background = element_rect(fill="transparent"))
 ```
 
-# Biphasic risk
+# Risk of developing a biphasic reaction
+
+## with concomitant hypotension
 
 left Biphasic, top - Hypotension as a symptom. Alle cases, no age differentiation:
 
 ```{r}
-table(d.rm$q_130_biphasic_v4,d.rm$q_114_hypotension_collapse_v5)
+table(d.rm$q_130_biphasic_v4,d.rm$q_114_hypotension_collapse_v5) %>% 
+  {summary(.[2:3,1:2])}
 ```
 
 
-```{r}
-temp <- split(d.rm, d.rm$ages)
-lapply(temp,function(age){
-  table(age$q_130_biphasic_v4,age$q_114_hypotension_collapse_v5) %>% {.[2:3,]} %>% summary()
-})
-```
+## with unknown trigger as an elicitor 
 
 Unknown elicitor showed relevant meanig that unknown trigger-cases were more often connected with biphasic reactions 
 
+
 ```{r}
 table(d.rm$q_130_biphasic_v4,d.rm$q_310_trigger) %>% {.[2:3,1:2]}
-table(d.rm$q_130_biphasic_v4,d.rm$q_310_trigger) %>% {.[2:3,1:2]} %>% prop.table(2)
+t <- table(d.rm$q_130_biphasic_v4,d.rm$q_310_trigger) %>% {.[2:3,1:2]} %>% prop.table(2)
+dimnames(t) <- list(Biphasic = c("not biphasic","biphasic"),
+                    Trigger = c("unknown","known"))
+t
 table(d.rm$q_130_biphasic_v4,d.rm$q_310_trigger) %>% {.[2:3,1:2]} %>% summary()
-
 
 ```
 
@@ -671,6 +672,17 @@ e_420_CoF_incl_infect[which(
 d.rm$e_420_CoF_incl_infect <- factor(e_420_CoF_incl_infect)
 ```
 
+## Biphasic reaction depending on the trigger group 
+
+```{r}
+t <- table(d.rm$d_elicitor_gr5,d.rm$q_130_biphasic_v4)
+t
+t %>% {.[,2:3]} %>% 
+  pairwise.chisq.test()
+
+chisq.test(t[c(1,5),2:3])
+```
+
 # e_420_CoF_incl_infect
 
 ```{r}
@@ -686,3 +698,10 @@ valF(d.rm$e_423_five)
 ```
 
 
+# Differences between Age groups and time to reaction
+
+```{r}
+t <- table(d.rm$ages,d.rm$q_120_time_between_v4)[,3:8]
+t
+pairwise.chisq.test(t)
+```

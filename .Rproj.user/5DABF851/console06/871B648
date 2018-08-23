@@ -381,3 +381,125 @@ Untracked files:
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git add .
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	[32mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+	[32mmodified:   .Rproj.user/5DABF851/sources/prop/INDEX[m
+	[32mmodified:   .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json[m
+	[32mmodified:   .Rproj.user/shared/notebooks/paths[m
+	[32mmodified:   Project.Rmd[m
+	[32mmodified:   Project.docx[m
+	[32mmodified:   Project.html[m
+	[32mdeleted:    Project_files/figure-docx/unnamed-chunk-37-1.png[m
+	[32mdeleted:    Project_files/figure-docx/unnamed-chunk-37-2.png[m
+	[32mdeleted:    Project_files/figure-docx/unnamed-chunk-38-1.png[m
+	[32mdeleted:    Project_files/figure-docx/unnamed-chunk-39-1.png[m
+	[32mdeleted:    Project_files/figure-docx/unnamed-chunk-40-1.png[m
+	[32mdeleted:    Project_files/figure-docx/unnamed-chunk-41-1.png[m
+	[32mnew file:   data4.R[m
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git pu[K[Kcommit -m" [K[K ""d"a"t"a"[1P"[1P"[1P"[1P"a"n"o"t"h"e"r" "3" "i"s"s"u"e"s" "f"o"r" "S"a"b"i"n"e" "+" "r"e"n"d"e"r"s" "d"o"n"e"
+[master f15d51d] another 3 issues for Sabine + renders done
+ 14 files changed, 501 insertions(+), 259 deletions(-)
+ rewrite .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json (94%)
+ rewrite Project.docx (94%)
+ delete mode 100644 Project_files/figure-docx/unnamed-chunk-37-1.png
+ delete mode 100644 Project_files/figure-docx/unnamed-chunk-37-2.png
+ delete mode 100644 Project_files/figure-docx/unnamed-chunk-38-1.png
+ delete mode 100644 Project_files/figure-docx/unnamed-chunk-39-1.png
+ delete mode 100644 Project_files/figure-docx/unnamed-chunk-40-1.png
+ delete mode 100644 Project_files/figure-docx/unnamed-chunk-41-1.png
+ create mode 100644 data4.R
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git push origin master
+Counting objects: 62, done.
+Delta compression using up to 4 threads.
+Compressing objects:   2% (1/50)   Compressing objects:   4% (2/50)   Compressing objects:   6% (3/50)   Compressing objects:   8% (4/50)   Compressing objects:  10% (5/50)   Compressing objects:  12% (6/50)   Compressing objects:  14% (7/50)   Compressing objects:  16% (8/50)   Compressing objects:  18% (9/50)   Compressing objects:  20% (10/50)   Compressing objects:  22% (11/50)   Compressing objects:  24% (12/50)   Compressing objects:  26% (13/50)   Compressing objects:  28% (14/50)   Compressing objects:  30% (15/50)   Compressing objects:  32% (16/50)   Compressing objects:  34% (17/50)   Compressing objects:  36% (18/50)   Compressing objects:  38% (19/50)   Compressing objects:  40% (20/50)   Compressing objects:  42% (21/50)   Compressing objects:  44% (22/50)   Compressing objects:  46% (23/50)   Compressing objects:  48% (24/50)   Compressing objects:  50% (25/50)   Compressing objects:  52% (26/50)   Compressing objects:  54% (27/50)   Compressing objects:  56% (28/50)   Compressing objects:  58% (29/50)   Compressing objects:  60% (30/50)   Compressing objects:  62% (31/50)   Compressing objects:  64% (32/50)   Compressing objects:  66% (33/50)   Compressing objects:  68% (34/50)   Compressing objects:  70% (35/50)   Compressing objects:  72% (36/50)   Compressing objects:  74% (37/50)   Compressing objects:  76% (38/50)   Compressing objects:  78% (39/50)   Compressing objects:  80% (40/50)   Compressing objects:  82% (41/50)   Compressing objects:  84% (42/50)   Compressing objects:  86% (43/50)   Compressing objects:  88% (44/50)   Compressing objects:  90% (45/50)   Compressing objects:  92% (46/50)   Compressing objects:  94% (47/50)   Compressing objects:  96% (48/50)   Compressing objects:  98% (49/50)   Compressing objects: 100% (50/50)   Compressing objects: 100% (50/50), done.
+Writing objects:   1% (1/62)   Writing objects:   3% (2/62)   Writing objects:   4% (3/62)   Writing objects:   8% (5/62)   Writing objects:   9% (6/62)   Writing objects:  11% (7/62)   Writing objects:  12% (8/62)   Writing objects:  14% (9/62)   Writing objects:  16% (10/62)   Writing objects:  17% (11/62)   Writing objects:  19% (12/62)   Writing objects:  20% (13/62)   Writing objects:  22% (14/62)   Writing objects:  24% (15/62)   Writing objects:  25% (16/62)   Writing objects:  27% (17/62)   Writing objects:  29% (18/62)   Writing objects:  30% (19/62)   Writing objects:  32% (20/62)   Writing objects:  33% (21/62)   Writing objects:  35% (22/62)   Writing objects:  37% (23/62)   Writing objects:  38% (24/62)   Writing objects:  40% (25/62)   Writing objects:  41% (26/62)   Writing objects:  43% (27/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  45% (28/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  46% (29/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  48% (30/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  50% (31/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  51% (32/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  53% (33/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  54% (34/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  56% (35/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  58% (36/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  59% (37/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  61% (38/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  62% (39/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  66% (41/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  67% (42/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  70% (44/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  72% (45/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  74% (46/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  75% (47/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  77% (48/62), 1.30 MiB | 1.42 MiB/s   Writing objects:  77% (48/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  79% (49/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  80% (50/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  82% (51/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  83% (52/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  85% (53/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  87% (54/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  88% (55/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  90% (56/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  91% (57/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  93% (58/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  95% (59/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  96% (60/62), 1.92 MiB | 1.30 MiB/s   Writing objects:  98% (61/62), 1.92 MiB | 1.30 MiB/s   Writing objects: 100% (62/62), 1.92 MiB | 1.30 MiB/s   Writing objects: 100% (62/62), 2.01 MiB | 1.35 MiB/s, done.
+Total 62 (delta 19), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/19)   [Kremote: Resolving deltas:  10% (2/19)   [Kremote: Resolving deltas:  15% (3/19)   [Kremote: Resolving deltas:  26% (5/19)   [Kremote: Resolving deltas:  42% (8/19)   [Kremote: Resolving deltas:  47% (9/19)   [Kremote: Resolving deltas:  52% (10/19)   [Kremote: Resolving deltas:  68% (13/19)   [Kremote: Resolving deltas:  78% (15/19)   [Kremote: Resolving deltas:  94% (18/19)   [Kremote: Resolving deltas: 100% (19/19)   [Kremote: Resolving deltas: 100% (19/19), completed with 7 local objects.[K
+To github.com:wolass/Elderly-paper.git
+   6febbc4..f15d51d  master -> master
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+	[31mmodified:   .Rproj.user/5DABF851/console06/INDEX001[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648.env[m
+	[31mmodified:   .Rproj.user/5DABF851/console06/INDEX001[m
+	[31mmodified:   .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json[m
+	[31mmodified:   Project.Rmd[m
+	[31mmodified:   Project.docx[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ gir add .
+
+Command 'gir' not found, did you mean:
+
+  command 'dir' from deb coreutils
+  command 'git' from deb git
+  command 'gip' from deb gip
+  command 'gid' from deb id-utils
+  command 'gri' from deb gri
+  command 'gio' from deb libglib2.0-bin
+  command 'gpr' from deb gpr
+
+Try: sudo apt install <deb name>
+
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ gir push origi[K[K[K[K[K[K[K[K[K[K[K[Kt commit -m "" [1@S[1@a[1@b[1@i[1@n[1@e[1@ [1@c[1@o[1@r[1@r[1@e[1@c[1@t[1@i[1@o[1@n[1@ [1@i[1@s[1@s[1@u[1@e[1@s[1@ [1P[1@ [1@E[1@l[1@d[1@e[1@r[1@l[1@y[1@y[1P[1@ [1@m[1@a[1@i[1@l[1@ [1@3[1@ 
+On branch master
+Changes not staged for commit:
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648.env[m
+	[31mmodified:   .Rproj.user/5DABF851/console06/INDEX001[m
+	[31mmodified:   .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json[m
+	[31mmodified:   Project.Rmd[m
+	[31mmodified:   Project.docx[m
+
+no changes added to commit
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ gir p[K[K[Kt push origin master
+Everything up-to-date
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648[m
+	[31mmodified:   .Rproj.user/5DABF851/console06/871B648.env[m
+	[31mmodified:   .Rproj.user/5DABF851/console06/INDEX001[m
+	[31mmodified:   .Rproj.user/shared/notebooks/100D14DF-Project/1/s/chunks.json[m
+	[31mmodified:   Project.Rmd[m
+	[31mmodified:   Project.docx[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+]0;/home/wolass/Documents/elderly paper]0;wolass@wolass-XPS: ~/Documents/elderly paper[01;32mwolass@wolass-XPS[00m:[01;34m~/Documents/elderly paper[00m$ git add .
