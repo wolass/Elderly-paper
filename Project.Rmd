@@ -510,18 +510,29 @@ Second plot - symptoms
 
 ```{r}
 
+noyesf<- function(x){
+  x[which(x!="yes")]<-"no"
+  return(x)
+}
+
+d.rm$q_112_vomiting_ny <- d.rm$q_112_vomiting %>% noyesf
+d.rm$q_112_abdominal_pain_ny <- d.rm$q_112_abdominal_pain %>% noyesf()
+d.rm$q_112_incontinence_ny <- d.rm$q_112_incontinence %>% noyesf()
+d.rm$q_112_nausea_ny <- d.rm$q_112_nausea %>% noyesf()
+
+
 ggplot(d.rm[!is.na(d.rm$q_112_vomiting),],aes(x=d_age,y=..count..))+
-  stat_density(position="fill",geom="line",aes(color=q_112_vomiting,linetype="1"))+
-  stat_density(position="fill",geom="line",aes(color=q_112_abdominal_pain,linetype="4"))+
-  stat_density(position="fill",geom="line",aes(color=q_112_incontinence,linetype="6"))+
-  stat_density(position="fill",geom="line",aes(color=q_112_nausea,linetype="8"))+
+  stat_density(position="fill",geom="line",aes(color=q_112_vomiting_ny,linetype="1"))+
+  stat_density(position="fill",geom="line",aes(color=q_112_abdominal_pain_ny,linetype="4"))+
+  stat_density(position="fill",geom="line",aes(color=q_112_incontinence_ny,linetype="6"))+
+  stat_density(position="fill",geom="line",aes(color=q_112_nausea_ny,linetype="8"))+
   theme_bw()+
   scale_fill_grey(guide=guide_legend(title = "Elicitor"))+
   # guides(fill=guide_legend(reverse=F))+
   ylab("Relative count")+
-    geom_segment(aes(xend=40,x=40,y=0,yend=1),linetype=2)+
+  geom_segment(aes(xend=40,x=40,y=0,yend=0.5),linetype= 2, color = "gray")+
   ylim(c(0,0.5))+
-  geom_segment(aes(xend=60,x=60,y=0,yend=1),linetype=2)+
+  geom_segment(aes(xend=64,x=64,y=0,yend=0.5),linetype= 2, color="gray")+
   guides(color="none",
          linetype=guide_legend(title = "Symptom"))+
   scale_linetype_manual(values=c(1,4,3,8),
@@ -542,17 +553,17 @@ ggplot(d.rm[!is.na(d.rm$q_112_vomiting),],aes(x=d_age,y=..count..))+
 
 ggplot(d.rm[!is.na(d.rm$q_111_erythema_flush_v5),],
        aes(x=d_age,y=..count..))+
-  stat_density(position="fill",geom="line",aes(color=q_111_angioedema,linetype="1"))+
-  stat_density(position="fill",geom="line",aes(color=q_111_urticaria,linetype="4"))+
-  stat_density(position="fill",geom="line",aes(color=q_111_pruritus,linetype="6"))+
-  stat_density(position="fill",geom="line",aes(color=q_111_erythema_flush_v5,linetype="8"))+
+  stat_density(position="fill",geom="line",aes(color=q_111_angioedema%>% noyesf,linetype="1"))+
+  stat_density(position="fill",geom="line",aes(color=q_111_urticaria%>% noyesf,linetype="4"))+
+  stat_density(position="fill",geom="line",aes(color=q_111_pruritus%>% noyesf,linetype="6"))+
+  stat_density(position="fill",geom="line",aes(color=q_111_erythema_flush_v5%>% noyesf,linetype="8"))+
   theme_bw()+
   scale_fill_grey(guide=guide_legend(title = "Elicitor"))+
   # guides(fill=guide_legend(reverse=F))+
   ylab("Relative count")+
-    geom_segment(aes(xend=40,x=40,y=0,yend=1),linetype=2)+
-  ylim(c(0,0.6))+
-  geom_segment(aes(xend=60,x=60,y=0,yend=1),linetype=2)+
+  geom_segment(aes(xend=40,x=40,y=0.2,yend=0.7),linetype= 2, color = "gray")+
+  ylim(c(0.2,0.7))+
+  geom_segment(aes(xend=64,x=64,y=0.2,yend=0.7),linetype= 2, color="gray")+
   guides(color="none",
          linetype=guide_legend(title = "Symptom"))+
   scale_linetype_manual(values=c(1,4,3,8),
@@ -560,7 +571,7 @@ ggplot(d.rm[!is.na(d.rm$q_111_erythema_flush_v5),],
                                    "urticaria",
                                    "pruritus",
                                    "erythema"))+
-  theme(legend.position = c(0.1,0.1),
+  theme(legend.position = c(0.7,0.5),
         legend.justification = c(0,0),
         legend.background = element_rect(fill="transparent"))
   
@@ -572,17 +583,17 @@ ggplot(d.rm[!is.na(d.rm$q_111_erythema_flush_v5),],
 ```{r}
 
 ggplot(d.rm[!is.na(d.rm$q_113_wheezing_expiratory_distress_v5),],aes(x=d_age,y=..count..))+
-  stat_density(position="fill",geom="line",aes(color=q_113_dyspnea,linetype="1"))+
-  stat_density(position="fill",geom="line",aes(color=q_113_wheezing_expiratory_distress_v5,linetype="2"))+
-  stat_density(position="fill",geom="line",aes(color=q_113_chest_tightness_v5,linetype="3"))+
-  stat_density(position="fill",geom="line",aes(color=q_113_respiratory_arrest,linetype="4"))+
+  stat_density(position="fill",geom="line",aes(color=q_113_dyspnea %>% noyesf,linetype="1"))+
+  stat_density(position="fill",geom="line",aes(color=q_113_wheezing_expiratory_distress_v5%>% noyesf,linetype="2"))+
+  stat_density(position="fill",geom="line",aes(color=q_113_chest_tightness_v5%>% noyesf,linetype="3"))+
+  stat_density(position="fill",geom="line",aes(color=q_113_respiratory_arrest%>% noyesf,linetype="4"))+
   theme_bw()+
   scale_fill_grey(guide=guide_legend(title = "Elicitor"))+
   # guides(fill=guide_legend(reverse=F))+
   ylab("Relative count")+
-    geom_segment(aes(xend=40,x=40,y=0,yend=1),linetype=2)+
-  ylim(c(0,0.7))+
-  geom_segment(aes(xend=60,x=60,y=0,yend=1),linetype=2)+
+    geom_segment(aes(xend=40,x=40,y=0,yend=0.7),linetype=2, color = "gray")+
+  ylim(c(0.00,0.7))+
+  geom_segment(aes(xend=64,x=64,y=0,yend=0.7),linetype=2,color = "gray")+
   guides(color="none",
          linetype=guide_legend(title = "Symptom"))+
   scale_linetype_manual(values=c(1,4,3,8),
@@ -590,7 +601,7 @@ ggplot(d.rm[!is.na(d.rm$q_113_wheezing_expiratory_distress_v5),],aes(x=d_age,y=.
                                  "Expiratory distress",
                                  "Chest tightness",
                                  "respiratory arrest"))+
-  theme(legend.position = c(0.1,0.4),
+  theme(legend.position = c(0.01,0.3),
         legend.justification = c(0,0),
         legend.background = element_rect(fill="transparent"))
 ```
@@ -600,25 +611,25 @@ ggplot(d.rm[!is.na(d.rm$q_113_wheezing_expiratory_distress_v5),],aes(x=d_age,y=.
 ```{r}
 ggplot(d.rm[!is.na(d.rm$q_114_loss_of_consciousness),],
        aes(x=d_age,y=..count..))+
-  stat_density(position="fill",geom="line",aes(color=q_114_dizziness,linetype="1"))+
-  stat_density(position="fill",geom="line",aes(color=q_114_loss_of_consciousness,linetype="2"))+
-  stat_density(position="fill",geom="line",aes(color=q_114_cardiac_arrest,linetype="3"))+
-  stat_density(position="fill",geom="line",aes(color=q_114_tachycardia,linetype="4"))+
+  stat_density(position="fill",geom="line",aes(color=q_114_dizziness %>% noyesf,linetype="1"))+
+  stat_density(position="fill",geom="line",aes(color=q_114_loss_of_consciousness%>% noyesf,linetype="2"))+
+  stat_density(position="fill",geom="line",aes(color=q_114_cardiac_arrest%>% noyesf,linetype="3"))+
+  stat_density(position="fill",geom="line",aes(color=q_114_tachycardia%>% noyesf,linetype="4"))+
   theme_bw()+
   scale_fill_grey(guide=guide_legend(title = "Elicitor"))+
   # guides(fill=guide_legend(reverse=F))+
   ylab("Relative count")+
-    geom_segment(aes(xend=40,x=40,y=0,yend=1),linetype=2)+
+    geom_segment(aes(xend=40,x=40,y=0,yend=0.7),linetype=2, color = "gray")+
   ylim(c(0,0.7))+
-  geom_segment(aes(xend=60,x=60,y=0,yend=1),linetype=2)+
+  geom_segment(aes(xend=64,x=64,y=0,yend=0.7),linetype=2,color= "gray")+
   guides(color="none",
          linetype=guide_legend(title = "Symptom"))+
   scale_linetype_manual(values=c(1,4,3,8),
                         labels=c("Dizziness",
-                                 "Loss of conciousness",
+                                 "Loss of consciousness",
                                  "Cardiac arrest",
                                  "Tachychardia"))+
-  theme(legend.position = c(0.1,0.9),
+  theme(legend.position = c(0.1,0.95),
         legend.justification = c(0,1),
         legend.background = element_rect(fill="transparent"))
 ```
