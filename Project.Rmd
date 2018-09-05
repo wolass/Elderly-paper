@@ -716,3 +716,91 @@ t <- table(d.rm$ages,d.rm$q_120_time_between_v4)[,3:8]
 t
 pairwise.chisq.test(t)
 ```
+
+
+
+# Table 3 
+```{r}
+d <- split(d.rm,d.rm$d_severity_rm)
+d$`grade II`$d_severity_rm %>% summary()
+
+lapply(d, function(sevLev){
+  summary(sevLev$d_severity_rm)
+  }
+  )
+
+table(d.rm$d_severity_rm,d.rm$q_510_first)
+
+```
+
+```{r}
+c(1124,0.76,1568,0.77,444,.81)
+tabchi <- function(input){
+  t <- rbind(c(input[c(1,3,5)]),
+        c((input[1]/input[2])-input[1],(input[3]/input[4])-input[3],(input[5]/input[6])-input[5]) %>% round(0))
+  chisq.test(t)$p.value
+}
+
+tab3_p <- rbind(
+c(tabchi(c(1124,0.76,1568,0.77,444,.81)),
+tabchi(c(576,0.76,1139,0.84,442,.84)), # signif
+tabchi(c(30,0.83,113,0.93,45,.94)),
+tabchi(c(1730,0.76,2820,0.80,931,.83)) # Total signif
+),
+
+
+c(tabchi(c(142,.17,220,.20,71,.23)), # 
+tabchi(c(129,.30,274,.36,95,.33)), # 
+tabchi(c(18,.78,55,.63,23,.77)), #
+tabchi(c(289,0.23,549,0.28,189,.30))# Total signif
+),
+
+c(tabchi(c(725,.89,974,.91,264,.87)), # 
+tabchi(c(380,.87,692,.90,263,.90)), # 
+tabchi(c(16,.70,63,.74,21,.72)), # 
+tabchi(c(1121,0.88,1729,0.90,548,.88)) # Total 
+),
+
+c(tabchi(c(653,.80,864,.80,234,.76)), # 
+tabchi(c(342,.78,604,.78,232,.80)), # 
+tabchi(c(13,.57,54,.62,20,.67)), # 
+tabchi(c(1008,0.79,1522,0.78,486,.77)) # Total 
+),
+
+c(tabchi(c(271,.48,338,.49,123,.57)), # 
+tabchi(c(161,.60,325,.64,123,.64)), # 
+tabchi(c(8,.67,48,.91,19,.95)), # signif
+tabchi(c(440,0.52,711,0.56,265,.62)) # Total 
+),
+
+c(tabchi(c(48,.09,76,.11,25,.13)), # 
+tabchi(c(41,.16,83,.17,37,.20)), # 
+tabchi(c(8,.67,48,.91,19,.95)), # signif
+tabchi(c(95,0.12,205,0.17,81,.20)) # Total signif
+)
+)
+
+colnames(tab3_p) <- c("II","III","IV","Total")
+rownames(tab3_p) <- c("First line","Epi","Corticos","Antihist","Hospital admit","ICU")
+tab3_p %<>% round(3)
+write.csv(tab3_p,file = "TAB3.csv")
+
+```
+
+```{r tab4}
+cbind(c("Self administered",
+        "Family member",
+        "Other person",
+        "Epinephrine",
+        "Anti hist",
+        "Corticosteroids"),
+c(tabchi(c(246,.84,305,.79,66,.84)),
+tabchi(c(30,.10,49,.13,7,.085)),
+tabchi(c(17,.058,34,.088,6,.076)),
+tabchi(c(32,.11,68,.18,14,.18)),
+tabchi(c(225,.77,268,.69,49,.62)),
+tabchi(c(130,.44,174,.45,40,.51))
+)
+) %>% 
+  write.csv("tab4.csv")
+```
