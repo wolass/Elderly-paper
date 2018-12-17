@@ -1,0 +1,59 @@
+
+```{r}
+table(d.rm$ages) # Total
+table(d.rm$ages) %>% prop.table()
+aggregate(d_age~ages, data = d.rm, mean)# Age 
+require(dplyr)
+group_by(d.rm, ages) %>% summarize(m = mean(d_age),
+                                   sd = sd(d_age)) %>% 
+                                   {.[]}
+
+
+table(d.rm$b_sex,d.rm$ages)#sex
+table(d.rm$b_sex,d.rm$ages) %>% prop.table(2)
+
+f1 <- function(x,v=1:2,h=1:2){
+  return(list(tab = table(d.rm[,x],d.rm$ages),#sex
+prop = table(d.rm[,x],d.rm$ages) %>% prop.table(2) %>% {.*100},
+p = chisq.test(table(d.rm[,x],d.rm$ages)[v,h])$p.value
+))
+}
+
+
+
+
+
+funG <- function(f11,h=1){
+  c(f11[[1]][h,1],
+  f11[[2]][h,1],
+  f11[[1]][h,2],
+  f11[[2]][h,2],
+  f11[[3]])
+
+}
+
+
+tab1 <- rbind(c(
+  f1("b_sex")[[1]][1,1],
+  f1("b_sex")[[2]][1,1],
+  f1("b_sex")[[1]][1,2],
+  f1("b_sex")[[2]][1,2],
+  f1("b_sex")[[3]]),
+  f1("d_410_atopic") %>% funG,
+f1("q_163_cardiovasc_v4") %>% funG(h=2),
+f1("q_410_masto_cur") %>% funG(h=2),
+f1("q_410_thyroid_cur")%>% funG(h=2),
+f1("q_111_urticaria")%>% funG(h=2),
+#f1("q_421_exercise",v=1:4)%>% funG(h=2)
+f1("q_422_stress") %>% funG(h=2),
+f1("q_425_alcohol")%>% funG(h=2),
+f1("q_410_infect_cur")%>% funG(h=2))
+
+colnames(tab1) <- c("Adults","%","Elderly","%","p-val")
+tab1 %<>% as.data.frame()
+tab1$variable = c("female Sex","atopic","cardiovascular","mastocytosis","thyroid","urticaria","stress","alcohol","infection")
+tab1 %>% kable(digits = c(0,1,0,1,4))
+```
+
+
+

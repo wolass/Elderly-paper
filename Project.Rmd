@@ -3,8 +3,8 @@ title: "Elderly Paper - data analysis"
 author: W. Francuzik
 date: 21.08.2018
 output:
-  word_document: default
   html_document: default
+  word_document: default
   pdf_document: default
 ---
 
@@ -23,9 +23,9 @@ options(scipen=9999)
 require(bibtex)
 require(knitcitations)
 #biblio <- read.bib("bib.bibtex")
-cite_options(citation_format = "compatibility", style = "text",
-             hyperlink = FALSE, cite.style = "numeric", super = FALSE,
-             max.names = 4, longnamesfirst = FALSE, check.entries = FALSE)
+#cite_options(citation_format = "compatibility", style = "text",
+#             hyperlink = FALSE, cite.style = "numeric", super = FALSE,
+#             max.names = 4, longnamesfirst = FALSE, check.entries = FALSE)
 
 require(pander)
 #replace.print.methods <- function(PKG_name = "pander") {
@@ -111,8 +111,8 @@ Cases with severity of `>= II` `r nrow(d.rm)`
 ```{r}
 d.ch <- d.rm[which(d.rm$d_age<18),]
 d.ad<- d.rm[which(d.rm$d_age>=18),]
-d.ad.1 <- d.rm[which(d.rm$d_age>=18&d.rm$d_age<=40),]
-d.ad.2 <- d.rm[which(d.rm$d_age>=41&d.rm$d_age<=64),]
+d.ad.1 <- d.rm[which(d.rm$d_age>=18&d.rm$d_age<=64),]
+#d.ad.2 <- d.rm[which(d.rm$d_age>=41&d.rm$d_age<=64),]
 d.ad.3 <- d.rm[which(d.rm$d_age>=65),]
 
 ```
@@ -120,15 +120,12 @@ d.ad.3 <- d.rm[which(d.rm$d_age>=65),]
 
 Children `r nrow(d.ch)`, adults `r nrow(d.ad)`, 
 
-Adults 18-40 = `r nrow(d.ad.1)`
-Adults 41-64 = `r nrow(d.ad.2)`
+Adults 18-64 = `r nrow(d.ad.1)`
 Elderly >=65 = `r nrow(d.ad.3)`
 
 ```{r}
-f.age <-function(x){ if(x>17&x<=40){
-  return("young")
-} else if(x>40&x<=64){
-  return("middle")
+f.age <-function(x){ if(x>17&x<=64){
+  return("adult")
 } else if(x>=65){
   return("elderly")
 } else {
@@ -141,9 +138,13 @@ d.rm <- d.ad
 d.rm$ages <-sapply(d.rm$d_age,f.age) 
 
 table(d.rm$b_sex,d.rm$ages)
-require(rmngb)
-pairwise.chisq.test(d.rm$b_sex,d.rm$ages)
+prop.table(table(d.rm$b_sex,d.rm$ages),1
+)
+chisq.test(d.rm$b_sex,d.rm$ages)
+
 ```
+
+There were significantly more males in the elderly group 
 
 # Atopic dermatitis
 ```{r}
@@ -154,17 +155,21 @@ d_410_atopic[d.rm$q_410_ad_cur=="yes"|
 
 d.rm$d_410_atopic <- d_410_atopic
 table(d.rm$d_410_atopic,d.rm$ages)
-pairwise.chisq.test(d.rm$d_410_atopic,d.rm$ages,p.adj = "bonf")
+table(d.rm$d_410_atopic,d.rm$ages) %>% prop.table(1)
+chisq.test(d.rm$d_410_atopic,d.rm$ages)
 
 ```
+
+Signif. more non atopics in the elderly.
 
 # Cardiovascular disease 
 
 ```{r}
 temp <- table(d.rm$q_410_cardio_cur,d.rm$ages) 
-
-pairwise.chisq.test(x = d.rm$q_410_cardio_cur[d.rm$q_410_cardio_cur%in%c("no","yes")] %>% {as.character(.)},
-                    g = d.rm$ages[d.rm$q_410_cardio_cur%in%c("no","yes")])
+temp
+temp %>% prop.table(1)
+chisq.test(x = d.rm$q_410_cardio_cur[d.rm$q_410_cardio_cur%in%c("no","yes")] %>% {as.character(.)},
+                    d.rm$ages[d.rm$q_410_cardio_cur%in%c("no","yes")])
 
 ```
 
@@ -172,10 +177,12 @@ pairwise.chisq.test(x = d.rm$q_410_cardio_cur[d.rm$q_410_cardio_cur%in%c("no","y
 
 ```{r}
 table(d.rm$q_410_urtic_cur,d.rm$ages)
+table(d.rm$q_410_urtic_cur,d.rm$ages) %>% prop.table(1)
+
 
 valF <- function(val){
-  pairwise.chisq.test(x = val[which(val%in%c("no","yes"))] %>% as.character(),
-                    g = d.rm$ages[which(val%in%c("no","yes"))])
+  chisq.test(x = val[which(val%in%c("no","yes"))] %>% as.character(),
+                     d.rm$ages[which(val%in%c("no","yes"))])
 
 }
 valF(d.rm$q_410_urtic_cur)
@@ -200,14 +207,16 @@ valF(d.rm$q_410_thyroid_cur)
 
 ```{r}
 table(d.rm$q_421_exercise,d.rm$ages)
-pairwise.chisq.test(d.rm$q_421_exercise,d.rm$ages)
+summary(table(d.rm$q_421_exercise,d.rm$ages)[1:4,])
+require(rmngb)
+pairwise.chisq.test(d.rm$ages,d.rm$q_421_exercise)
 ```
 
 # Psychological stress
 
 ```{r}
 table(d.rm$q_422_stress,d.rm$ages)
-pairwise.chisq.test(d.rm$q_422_stress,d.rm$ages)
+chisq.test(d.rm$q_422_stress,d.rm$ages)
 ```
 
 # Alcohol
@@ -522,16 +531,19 @@ d.rm$q_112_nausea_ny <- d.rm$q_112_nausea %>% noyesf()
 
 
 ggplot(d.rm[!is.na(d.rm$q_112_vomiting),],aes(x=d_age,y=..count..))+
-  stat_density(position="fill",geom="line",aes(color=q_112_vomiting_ny,linetype="1"))+
-  stat_density(position="fill",geom="line",aes(color=q_112_abdominal_pain_ny,linetype="4"))+
-  stat_density(position="fill",geom="line",aes(color=q_112_incontinence_ny,linetype="6"))+
-  stat_density(position="fill",geom="line",aes(color=q_112_nausea_ny,linetype="8"))+
+  stat_density(position="fill",geom="line",aes(color=q_112_vomiting_ny,linetype="1"),size=1)+
+  stat_density(position="fill",geom="line",aes(color=q_112_abdominal_pain_ny,linetype="4"),size=2)+
+  stat_density(position="fill",geom="line",aes(color=q_112_incontinence_ny,linetype="6"),size=1)+
+  stat_density(position="fill",geom="line",aes(color=q_112_nausea_ny,linetype="8"),size=1)+
   theme_bw()+
+  scale_color_manual(values=c("#FFFFFF", "#000000"))+
+  xlab("Age [years]")+
   scale_fill_grey(guide=guide_legend(title = "Elicitor"))+
   # guides(fill=guide_legend(reverse=F))+
   ylab("Relative count")+
   geom_segment(aes(xend=40,x=40,y=0,yend=0.5),linetype= 2, color = "gray")+
-  ylim(c(0,0.5))+
+  ylim(c(0,0.65))+
+  xlim(c(18,80))+
   geom_segment(aes(xend=64,x=64,y=0,yend=0.5),linetype= 2, color="gray")+
   guides(color="none",
          linetype=guide_legend(title = "Symptom"))+
@@ -540,9 +552,16 @@ ggplot(d.rm[!is.na(d.rm$q_112_vomiting),],aes(x=d_age,y=..count..))+
                                    "abdominal pain",
                                    "incontinence",
                                    "nausea"))+
-  theme(legend.position = c(0.1,0.99),
-        legend.justification = c(0,1),
-        legend.background = element_rect(fill="transparent"))
+  theme(legend.position="none")+
+  scale_y_continuous(labels = scales::percent, limits = c(0,0.65))+
+  # ylim(c(0,0.65))+
+  #theme(legend.position = c(0.1,0.99),
+  #      legend.justification = c(0,1),
+  #      legend.background = element_rect(fill="transparent"),
+        # legend.key.width = unit(50, "mm"),
+  #      legend.key.width = unit(4,"lines"))+
+  #  guides(linetype = guide_legend(title = "",override.aes = list(size = 1)))+
+  annotate("text", x= c(30),y = c(0.25,0.14,0.06,0), label=c("nausea","vomiting","abdominal pain","incontinence"))
   
 
 ```
@@ -554,7 +573,7 @@ ggplot(d.rm[!is.na(d.rm$q_112_vomiting),],aes(x=d_age,y=..count..))+
 ggplot(d.rm[!is.na(d.rm$q_111_erythema_flush_v5),],
        aes(x=d_age,y=..count..))+
   stat_density(position="fill",geom="line",aes(color=q_111_angioedema%>% noyesf,linetype="1"))+
-  stat_density(position="fill",geom="line",aes(color=q_111_urticaria%>% noyesf,linetype="4"))+
+  stat_density(position="fill",geom="line",aes(color=q_111_urticaria%>% noyesf,linetype="4"),size = 1.2)+
   stat_density(position="fill",geom="line",aes(color=q_111_pruritus%>% noyesf,linetype="6"))+
   stat_density(position="fill",geom="line",aes(color=q_111_erythema_flush_v5%>% noyesf,linetype="8"))+
   theme_bw()+
@@ -562,7 +581,8 @@ ggplot(d.rm[!is.na(d.rm$q_111_erythema_flush_v5),],
   # guides(fill=guide_legend(reverse=F))+
   ylab("Relative count")+
   geom_segment(aes(xend=40,x=40,y=0.2,yend=0.7),linetype= 2, color = "gray")+
-  ylim(c(0.2,0.7))+
+  ylim(c(0.2,0.6))+
+    xlim(c(18,80))+
   geom_segment(aes(xend=64,x=64,y=0.2,yend=0.7),linetype= 2, color="gray")+
   guides(color="none",
          linetype=guide_legend(title = "Symptom"))+
@@ -573,7 +593,12 @@ ggplot(d.rm[!is.na(d.rm$q_111_erythema_flush_v5),],
                                    "erythema"))+
   theme(legend.position = c(0.7,0.5),
         legend.justification = c(0,0),
-        legend.background = element_rect(fill="transparent"))
+        legend.background = element_rect(fill="transparent"))+
+  theme(legend.position="none")+
+    annotate("text", x= c(25),y = c(0.57,0.5,0.42,0.33), label=c("angiooedema","urticaria","pruritus","erythema"))+
+  scale_color_manual(values=c("#FFFFFF", "#000000"))+
+   scale_y_continuous(labels = scales::percent, limits = c(0,0.65))+
+  xlab("Age [years]")
   
 
 ```
@@ -584,7 +609,7 @@ ggplot(d.rm[!is.na(d.rm$q_111_erythema_flush_v5),],
 
 ggplot(d.rm[!is.na(d.rm$q_113_wheezing_expiratory_distress_v5),],aes(x=d_age,y=..count..))+
   stat_density(position="fill",geom="line",aes(color=q_113_dyspnea %>% noyesf,linetype="1"))+
-  stat_density(position="fill",geom="line",aes(color=q_113_wheezing_expiratory_distress_v5%>% noyesf,linetype="2"))+
+  stat_density(position="fill",geom="line",aes(color=q_113_wheezing_expiratory_distress_v5%>% noyesf,linetype="2"),size =1.2)+
   stat_density(position="fill",geom="line",aes(color=q_113_chest_tightness_v5%>% noyesf,linetype="3"))+
   stat_density(position="fill",geom="line",aes(color=q_113_respiratory_arrest%>% noyesf,linetype="4"))+
   theme_bw()+
@@ -592,7 +617,8 @@ ggplot(d.rm[!is.na(d.rm$q_113_wheezing_expiratory_distress_v5),],aes(x=d_age,y=.
   # guides(fill=guide_legend(reverse=F))+
   ylab("Relative count")+
     geom_segment(aes(xend=40,x=40,y=0,yend=0.7),linetype=2, color = "gray")+
-  ylim(c(0.00,0.7))+
+  ylim(c(0.00,0.65))+
+    xlim(c(18,80))+
   geom_segment(aes(xend=64,x=64,y=0,yend=0.7),linetype=2,color = "gray")+
   guides(color="none",
          linetype=guide_legend(title = "Symptom"))+
@@ -603,7 +629,14 @@ ggplot(d.rm[!is.na(d.rm$q_113_wheezing_expiratory_distress_v5),],aes(x=d_age,y=.
                                  "respiratory arrest"))+
   theme(legend.position = c(0.01,0.3),
         legend.justification = c(0,0),
-        legend.background = element_rect(fill="transparent"))
+        legend.background = element_rect(fill="transparent"))+
+  theme(legend.position="none")+
+    annotate("text", x= c(35),y = c(0.50,0.18,0.08,0.0), label=c("dyspnea","chest tightness","expiratory distress","respiratory arrest"))+
+  scale_color_manual(values=c("#FFFFFF", "#000000"))+
+   scale_y_continuous(labels = scales::percent, limits = c(0,0.65))+
+ 
+  xlab("Age [years]")
+  
 ```
 
 ## Cardiac
@@ -612,7 +645,7 @@ ggplot(d.rm[!is.na(d.rm$q_113_wheezing_expiratory_distress_v5),],aes(x=d_age,y=.
 ggplot(d.rm[!is.na(d.rm$q_114_loss_of_consciousness),],
        aes(x=d_age,y=..count..))+
   stat_density(position="fill",geom="line",aes(color=q_114_dizziness %>% noyesf,linetype="1"))+
-  stat_density(position="fill",geom="line",aes(color=q_114_loss_of_consciousness%>% noyesf,linetype="2"))+
+  stat_density(position="fill",geom="line",aes(color=q_114_loss_of_consciousness%>% noyesf,linetype="2"),size = 1.2)+
   stat_density(position="fill",geom="line",aes(color=q_114_cardiac_arrest%>% noyesf,linetype="3"))+
   stat_density(position="fill",geom="line",aes(color=q_114_tachycardia%>% noyesf,linetype="4"))+
   theme_bw()+
@@ -620,7 +653,8 @@ ggplot(d.rm[!is.na(d.rm$q_114_loss_of_consciousness),],
   # guides(fill=guide_legend(reverse=F))+
   ylab("Relative count")+
     geom_segment(aes(xend=40,x=40,y=0,yend=0.7),linetype=2, color = "gray")+
-  ylim(c(0,0.7))+
+  ylim(c(0,0.5))+
+    xlim(c(18,80))+
   geom_segment(aes(xend=64,x=64,y=0,yend=0.7),linetype=2,color= "gray")+
   guides(color="none",
          linetype=guide_legend(title = "Symptom"))+
@@ -631,7 +665,13 @@ ggplot(d.rm[!is.na(d.rm$q_114_loss_of_consciousness),],
                                  "Tachychardia"))+
   theme(legend.position = c(0.1,0.95),
         legend.justification = c(0,1),
-        legend.background = element_rect(fill="transparent"))
+        legend.background = element_rect(fill="transparent"))+
+  theme(legend.position="none")+
+    annotate("text", x= c(35),y = c(0.44,0.27,0.12,0.04), label=c("dizziness","loss of consciousness","tachycardia","cardiac arrest"))+
+  scale_color_manual(values=c("#FFFFFF", "#000000"))+
+   scale_y_continuous(labels = scales::percent, limits = c(0,0.65))+
+ 
+  xlab("Age [years]")
 ```
 
 # Risk of developing a biphasic reaction
@@ -672,8 +712,8 @@ d.rm$e_423_five <- factor(e_423_five)
 
 e_420_CoF_incl_infect <- rep("no",length(d.rm[,1]))
 e_420_CoF_incl_infect[which(
-  d.rm$q_4212_exercise_intensity=="vigorous eg. running, heavy manual work, competitive sport"|
-  d.rm$q_4241_menstruation=="yes"|
+  d.rm$q_421_exercise!="no"|
+  d.rm$q_424_menstruation=="yes"|
   d.rm$q_425_alcohol=="yes"|
   d.rm$q_422_stress == "yes"|
   d.rm$e_423_five=="yes"|
@@ -694,14 +734,8 @@ t %>% {.[,2:3]} %>%
 chisq.test(t[c(1,5),2:3])
 ```
 
-# e_420_CoF_incl_infect
 
-```{r}
-table(d.rm$e_420_CoF_incl_infect,d.rm$ages)
-valF(d.rm$e_420_CoF_incl_infect)
-```
-
-# e_423_five
+# e_423_five most important concomitant drugs - beta ass, ace at2 and ppi
 
 ```{r}
 table(d.rm$e_423_five,d.rm$ages)
@@ -714,7 +748,7 @@ valF(d.rm$e_423_five)
 ```{r}
 t <- table(d.rm$ages,d.rm$q_120_time_between_v4)[,3:8]
 t
-pairwise.chisq.test(t)
+pairwise.chisq.test(t %>% t)
 ```
 
 
@@ -729,78 +763,95 @@ lapply(d, function(sevLev){
   }
   )
 
-table(d.rm$d_severity_rm,d.rm$q_510_first)
+table(d.rm$q_510_first,d.rm$ages) %>% prop.table(2)
 
+fit <- glm(d.rm$ages %>% factor()
+    ~d_severity_rm+q_510_first,family = "binomial", data = d.rm)
+summary(fit)
+```
+
+Here we see that if we adjust the treatment of a given reaction to severity (so the severity among adults and elderly is cosidered the same), elderly had less reactions that were treated solely by lay persons, or lay + profesionnal. This is interesting.. 
+
+```{r child="tables.Rmd"}
+```
+
+
+## Logistic regression 
+```{r regression analysis}
+
+lm(d.rm$rmr %>% as.numeric~d.rm$ages + 
+    # d.rm$e_423_five %>% as.factor()+
+    # d.rm$q_410_malig_cur
+     d.rm$e_420_CoF_incl_infect,family="binomial") %>% summary()
+```
+The severity depends on age + trigger factors+ cofactors 
+
+```{r}
+e_423_five <- rep("no",length(d.rm[,1]))
+e_423_five[which(d.rm$q_423_ace=="yes"|
+                 d.rm$q_423_asa=="yes"|
+                 d.rm$q_423_at2 == "yes"|
+                 d.rm$q_423_beta == "yes"|
+                 d.rm$q_423_ppi_v6 == "yes")] <- "yes"
+d.rm$e_423_five <- factor(e_423_five)
+
+e_420_CoF_incl_infect <- rep("no",length(d.rm[,1]))
+e_420_CoF_incl_infect[which(
+  d.rm$q_421_exercise!="no"|
+  d.rm$q_424_menstruation=="yes"|
+  d.rm$q_425_alcohol=="yes"|
+  d.rm$q_422_stress == "yes"|
+  d.rm$e_423_five=="yes"|
+  d.rm$q_410_infect_cur == "yes"
+    )] <- "yes"
+
+lm(d.rm$rmr %>% as.numeric~d.rm$ages + 
+    # d.rm$e_423_five %>% as.factor()+
+    d.rm$q_410_malig_cur %>% factor(levels = c("no","yes"))+
+    # d.rm$e_420_CoF_incl_infect+
+   d.rm$q_423_ace%>% factor(levels = c("no","yes"))+
+     d.rm$q_423_asa+
+     d.rm$q_423_at2%>% factor(levels = c("no","yes"))+
+    d.rm$q_423_beta+
+     d.rm$q_423_ppi_v6%>% factor(levels = c("no","yes"))+
+#     d.rm$q_424_menstruation+
+    # d.rm$q_425_alcohol+
+     d.rm$q_422_stress#+
+#     d.rm$q_410_infect_cur
+,family="binomial") %>% MASS::stepAIC() %>% 
+summary()
+```
+
+
+## Fatal incidents in elderly are similarly frequent as in the younger patients. 
+
+```{r}
+ chifatal <- d.rm$q_140_fatal %>% table(d.rm$ages) 
+```
+
+There were no difference in fatal anaphylaxis (p = `r chifatal %>% {summary(.)$p.value}`), what was not in concordance to previously published reports! [Jerschow E, Lin RY, Scaperotti MM, McGinn AP. Fatal anaphylaxis in the
+United States, 1999–2010: temporal patterns and demographic associations.
+J Allergy Clin Immunol 2014; 134:1318–1328. ]
+
+### MAlignant diseases
+
+```{R}
+tab_malig <- d.rm$q_410_malig_cur %>% table(d.rm$ages)
+tab_malig[1:2,] %>% summary()
+```
+
+Malignant diseases were more often diagnosed in the elderly group of patients. 
+
+```{r}
+ggplot(d.rm,aes(ages,q_212_tryptase_value_v5))+
+  geom_boxplot()+
+  scale_y_log10()
 ```
 
 ```{r}
-c(1124,0.76,1568,0.77,444,.81)
-tabchi <- function(input){
-  t <- rbind(c(input[c(1,3,5)]),
-        c((input[1]/input[2])-input[1],(input[3]/input[4])-input[3],(input[5]/input[6])-input[5]) %>% round(0))
-  chisq.test(t)$p.value
-}
-
-tab3_p <- rbind(
-c(tabchi(c(1124,0.76,1568,0.77,444,.81)),
-tabchi(c(576,0.76,1139,0.84,442,.84)), # signif
-tabchi(c(30,0.83,113,0.93,45,.94)),
-tabchi(c(1730,0.76,2820,0.80,931,.83)) # Total signif
-),
-
-
-c(tabchi(c(142,.17,220,.20,71,.23)), # 
-tabchi(c(129,.30,274,.36,95,.33)), # 
-tabchi(c(18,.78,55,.63,23,.77)), #
-tabchi(c(289,0.23,549,0.28,189,.30))# Total signif
-),
-
-c(tabchi(c(725,.89,974,.91,264,.87)), # 
-tabchi(c(380,.87,692,.90,263,.90)), # 
-tabchi(c(16,.70,63,.74,21,.72)), # 
-tabchi(c(1121,0.88,1729,0.90,548,.88)) # Total 
-),
-
-c(tabchi(c(653,.80,864,.80,234,.76)), # 
-tabchi(c(342,.78,604,.78,232,.80)), # 
-tabchi(c(13,.57,54,.62,20,.67)), # 
-tabchi(c(1008,0.79,1522,0.78,486,.77)) # Total 
-),
-
-c(tabchi(c(271,.48,338,.49,123,.57)), # 
-tabchi(c(161,.60,325,.64,123,.64)), # 
-tabchi(c(8,.67,48,.91,19,.95)), # signif
-tabchi(c(440,0.52,711,0.56,265,.62)) # Total 
-),
-
-c(tabchi(c(48,.09,76,.11,25,.13)), # 
-tabchi(c(41,.16,83,.17,37,.20)), # 
-tabchi(c(8,.67,48,.91,19,.95)), # signif
-tabchi(c(95,0.12,205,0.17,81,.20)) # Total signif
-)
-)
-
-colnames(tab3_p) <- c("II","III","IV","Total")
-rownames(tab3_p) <- c("First line","Epi","Corticos","Antihist","Hospital admit","ICU")
-tab3_p %<>% round(3)
-write.csv(tab3_p,file = "TAB3.csv")
-
+t.test(d.rm$q_212_tryptase_value_v5[d.rm$ages=="adult"],
+       d.rm$q_212_tryptase_value_v5[d.rm$ages=="elderly"])
 ```
 
-```{r tab4}
-cbind(c("Self administered",
-        "Family member",
-        "Other person",
-        "Epinephrine",
-        "Anti hist",
-        "Corticosteroids"),
-c(tabchi(c(246,.84,305,.79,66,.84)),
-tabchi(c(30,.10,49,.13,7,.085)),
-tabchi(c(17,.058,34,.088,6,.076)),
-tabchi(c(32,.11,68,.18,14,.18)),
-tabchi(c(225,.77,268,.69,49,.62)),
-tabchi(c(130,.44,174,.45,40,.51))
-)
-) %>% 
-  write.csv("tab4.csv")
+```{R}
 ```
